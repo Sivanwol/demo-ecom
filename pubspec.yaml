@@ -42,6 +42,8 @@ dependencies:
 
   # localization
   easy_localization: ^3.0.0
+  easy_localization_loader:
+    git: https://github.com/aissat/easy_localization_loader.git
   # ui tools
   flutter_native_splash: ^1.1.4+1
   animations: ^2.0.0

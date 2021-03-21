@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization_loader/easy_localization_loader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 void main() async {
@@ -9,8 +11,9 @@ void main() async {
     supportedLocales: [
       Locale('en', 'US'),
     ],
-    path: 'translations',
+    path: 'assets/translations',
     fallbackLocale: Locale('en', 'US'),
+    assetLoader: JsonAssetLoader(),
     // startLocale: Locale('de', 'DE'),
   ));
 }
@@ -20,7 +23,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      localizationsDelegates: context.localizationDelegates,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        EasyLocalization.of(context).delegate,
+      ],
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       enableLog: true,
