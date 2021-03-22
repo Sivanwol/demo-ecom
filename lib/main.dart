@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      fallbackLocale: const Locale('en'), // dd this line
+      fallbackLocale: const Locale('en-US'), // dd this line
       enableLog: true,
       title: 'app test',
       theme: ThemeData(

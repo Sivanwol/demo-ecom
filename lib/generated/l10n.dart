@@ -35,21 +35,21 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Hello`
-  String get title {
-    return Intl.message(
-      'Hello',
-      name: 'title',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Reset Language`
   String get reset_locale {
     return Intl.message(
       'Reset Language',
       name: 'reset_locale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Testing`
+  String get title {
+    return Intl.message(
+      'Testing',
+      name: 'title',
       desc: '',
       args: [],
     );
@@ -62,6 +62,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
     ];
   }
 
