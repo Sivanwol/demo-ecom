@@ -1,21 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+
+import 'generated/l10n.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  runApp(EasyLocalization(
-    child: MyApp(),
-    supportedLocales: [
-      Locale('en', 'US'),
-    ],
-    path: 'assets/translations',
-    fallbackLocale: Locale('en', 'US'),
-    assetLoader: JsonAssetLoader(),
-    // startLocale: Locale('de', 'DE'),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,12 +15,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       localizationsDelegates: [
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        EasyLocalization.of(context).delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+      supportedLocales: S.delegate.supportedLocales,
+      fallbackLocale: const Locale('en'), // dd this line
       enableLog: true,
       title: 'app test',
       theme: ThemeData(
@@ -50,7 +42,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -58,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  final appTitle = tr('title');
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -72,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appTitle = S.of(context).title;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //

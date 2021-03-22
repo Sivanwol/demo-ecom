@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Service locator
   get_it: ^6.0.0
@@ -41,9 +43,7 @@ dependencies:
   firebase_crashlytics: ^0.4.0+1
 
   # localization
-  easy_localization: ^3.0.0
-  easy_localization_loader:
-    git: https://github.com/aissat/easy_localization_loader.git
+  intl: ^0.17.0
   # ui tools
   flutter_native_splash: ^1.1.4+1
   animations: ^2.0.0
@@ -77,7 +77,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -181,3 +181,5 @@ flutter_native_splash:
   #info_plist_files:
   #  - 'ios/Runner/Info-Debug.plist'
   #  - 'ios/Runner/Info-Release.plist'
+flutter_intl:
+  enabled: true
