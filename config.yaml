@@ -1,0 +1,7 @@
+environment_config:
+  dotenv_path: .env
+  fields:
+    key_one:
+      default: "test"
+    key_two:
+      dotenv: true

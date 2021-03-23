@@ -44,3 +44,5 @@ resources/
 *.inject.dart
 
 lib/main.config.dart
+.env
+/lib/environment_config.dart
