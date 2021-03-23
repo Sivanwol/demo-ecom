@@ -86,6 +86,8 @@ dev_dependencies:
   lint: ^1.5.3
 
   # misc tools
+  bloc_test: ^8.0.0
+  mockito: ^5.0.2
   flutter_native_splash: ^1.1.4+1
   flutter_launcher_icons: ^0.9.0
   environment_config: ^2.2.5
