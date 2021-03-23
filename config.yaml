@@ -1,6 +1,10 @@
 environment_config:
   dotenv_path: .env
+  path: common/config/application_config.dart
+  class: ApplicationConfig
   fields:
+    application_title:
+      dotenv: true
     key_one:
       default: "test"
     key_two:

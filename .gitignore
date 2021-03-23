@@ -45,4 +45,4 @@ resources/
 
 lib/main.config.dart
 .env
-/lib/environment_config.dart
+common/config/application_config.dart
