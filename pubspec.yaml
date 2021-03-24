@@ -27,8 +27,6 @@ dependencies:
     sdk: flutter
 
   # Service locator
-  get_it: ^6.0.0
-  injectable: ^1.2.2
   rxdart: ^0.26.0
   provider: ^5.0.0
 
@@ -37,7 +35,7 @@ dependencies:
   # Logging
   logger: ^1.0.0
   # Json
-  json_annotation: ^4.0.0
+  json_annotation: ^4.0.1
 
   # firebase
   firebase_core: ^0.7.0
@@ -80,14 +78,13 @@ dependency_overrides:
 dev_dependencies:
   # add build runner if not already added
   build_runner: ^1.12.2
-  injectable_generator: ^1.2.2
   flutter_test:
     sdk: flutter
   # Linting
   lint: ^1.5.3
 
   # Json
-  json_serializable: ^4.0.0
+  json_serializable: ^4.1.0
 
   # misc tools
   mockito: ^5.0.2
