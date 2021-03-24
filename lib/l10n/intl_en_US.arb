@@ -3,5 +3,6 @@
   "reset_locale": "Reset Language",
   "@reset_locale": {},
   "title": "Testing",
-  "@title": {}
+  "@title": {},
+  "splashTitle": "Splash Title"
 }

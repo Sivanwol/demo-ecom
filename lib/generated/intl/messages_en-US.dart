@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
+    "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
     "title" : MessageLookupByLibrary.simpleMessage("Testing")
   };
 }

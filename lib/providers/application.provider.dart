@@ -9,7 +9,7 @@ class ApplicationProvider extends ChangeNotifier {
     return _loadSplash;
   }
 
-  void stopSplash() {
+  void stopSplashScreen() {
     _loadSplash = false;
     notifyListeners();
   }

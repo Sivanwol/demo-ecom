@@ -5,7 +5,10 @@ environment_config:
   fields:
     application_title:
       dotenv: true
-    key_one:
-      default: "test"
-    key_two:
-      dotenv: true
+    splashTimeout:
+      default: 3000
+      type: int
+
+
+# run env generation via this command
+# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" ....

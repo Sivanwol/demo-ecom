@@ -18,23 +18,37 @@ class Application extends StatelessWidget {
           create: (context) => ApplicationProvider(),
         ),
       ],
-      child: GetMaterialApp(
-        localizationsDelegates: [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        fallbackLocale: const Locale('en-US'),
-        enableLog: true,
-        title: ApplicationConfig.application_title,
-        theme: basicTheme,
-        routes: Routes.routes,
-
-        // routerDelegate: _appRouter.delegate(...initialConfig),
-        // routeInformationParser: _appRouter.defaultRouteParser(),
-      ),
+      child: ApplicationContext(),
     );
+  }
+}
+
+class ApplicationContext extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      fallbackLocale: const Locale('en-US'),
+      enableLog: true,
+      title: ApplicationConfig.application_title,
+      theme: basicTheme,
+      routes: Routes.routes,
+      initialRoute: getInitialRoute(context),
+    );
+  }
+
+
+  String getInitialRoute(BuildContext context) {
+    final applicationProvider = Provider.of<ApplicationProvider>(context);
+    if (applicationProvider.loadSplash) {
+      return Routes.splash;
+    }
+    return Routes.home;
   }
 }
