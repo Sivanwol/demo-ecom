@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:demo_ecom/common/config/application_config.dart';
-import 'package:demo_ecom/providers/application.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
