@@ -1,5 +1,7 @@
+import 'package:demo_ecom/providers/home.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -10,19 +12,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final homeProvider = Provider.of<HomeProvider>(context);
+    final _counter =homeProvider.counter;
     final appTitle = S.of(context).title;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -67,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: homeProvider.increment,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,6 +1,7 @@
 import 'package:demo_ecom/common/app/theme.dart';
 import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/providers/application.provider.dart';
+import 'package:demo_ecom/providers/home.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,6 +17,9 @@ class Application extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<ApplicationProvider>(
           create: (context) => ApplicationProvider(),
+        ),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (context) => HomeProvider(),
         ),
       ],
       child: ApplicationContext(),

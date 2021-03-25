@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
   startTimer() {
-    final duration = Duration(milliseconds: ApplicationConfig.splashTimeout);
+    var duration = const Duration(milliseconds: ApplicationConfig.splashTimeout);
     return Timer(duration, redirect);
   }
 
