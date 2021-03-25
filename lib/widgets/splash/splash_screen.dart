@@ -8,7 +8,7 @@ import 'package:demo_ecom/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({Key key}) : super(key: key);
+  const SplashScreen({Key key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -16,9 +16,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  // ignore: avoid_void_async
   void initState() {
     super.initState();
-    startTimer();
+    startTimer(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -46,14 +47,14 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-  startTimer() {
+  startTimer(BuildContext context) {
     var duration = const Duration(milliseconds: ApplicationConfig.splashTimeout);
-    return Timer(duration, redirect);
+    return Timer(duration, () => redirect(context));
   }
 
-  redirect() async {
-    final applicationProvider = Provider.of<ApplicationProvider>(context);
-    applicationProvider.stopSplashScreen();
+  redirect(BuildContext context) async {
+    // final applicationProvider = Provider.of<ApplicationProvider>(context);
+    // applicationProvider.stopSplashScreen();
     Navigator.of(context).pushReplacementNamed(Routes.home);
 
   }
