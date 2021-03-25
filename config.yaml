@@ -8,7 +8,10 @@ environment_config:
     splashTimeout:
       default: 3000
       type: int
-
+    demo_mode:
+      dotenv: true
+      default: true
+      type: bool
 
 # run env generation via this command
 # flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" ....
