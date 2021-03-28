@@ -56,6 +56,8 @@ dependencies:
   introduction_screen: ^2.0.0
   flash: ^1.5.1
   material_floating_search_bar: ^0.3.3
+  video_player: ^2.1.0
+  chewie: ^1.0.0
   # ui icons
 
   cupertino_icons: ^1.0.2
@@ -107,10 +109,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-assets:
-  - assets/translations/
-  - assets/fonts/
-  - assets/media/
+  assets:
+    - assets/fonts/
+    - assets/media/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

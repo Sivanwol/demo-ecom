@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
   redirect(BuildContext context) async {
     // final applicationProvider = Provider.of<ApplicationProvider>(context);
     // applicationProvider.stopSplashScreen();
-    Navigator.of(context).pushReplacementNamed(Routes.home);
+    Navigator.of(context).pushReplacementNamed(Routes.login);
 
   }
 }
