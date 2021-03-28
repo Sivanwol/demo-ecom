@@ -1,4 +1,4 @@
-package com.wolberg.pro.demo.ecom.demo_ecom
+package com.wolberg.pro.demo.demo_ecom
 
 import io.flutter.embedding.android.FlutterActivity
 

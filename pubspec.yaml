@@ -163,9 +163,9 @@ flutter_icons:
 flutter_rename_app:
   application_name: Demo Ecom
   dart_package_name: demo_ecom
-  application_id: demo_ecom.wolberg.pro
-  bundle_id: demo_ecom.wolberg.pro
-  android_package_name: demo_ecom.wolberg.pro
+  application_id: com.wolberg.pro.demo
+  bundle_id: com.wolberg.pro.demo
+  android_package_name: com.wolberg.pro.demo
 targets:
   $default:
     builders:
