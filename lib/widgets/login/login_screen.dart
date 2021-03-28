@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:demo_ecom/routes.dart';
+import 'package:demo_ecom/widgets/login/login_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
@@ -56,49 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _getBackgroundColor() {
     return Container(
-      color: Colors.blue.withAlpha(120),
+      color: Colors.black.withAlpha(120),
     );
-  }
-
-  List<Widget> _getLoginButtons(BuildContext context) {
-    return <Widget>[
-      Container(
-        margin: const EdgeInsets.only(left: 20, right: 20),
-        width: double.infinity,
-        child: TextButton(
-          // color: Colors.white,
-          // padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-          onPressed: () async {
-            Navigator.of(context).pushReplacementNamed(Routes.home);
-          },
-          child: const Text('Sign Up with Email'),
-        ),
-      ),
-      Container(
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        width: double.infinity,
-        child: TextButton(
-          // color: Colors.blueAccent,
-          // padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-          onPressed: () async {},
-          child: const Text(
-            'Log back in',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-      Container(
-        margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
-        width: double.infinity,
-        child: TextButton(
-          onPressed: () {},
-          child: const Text(
-            'Later...',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-    ];
   }
 
   Widget _getContent(BuildContext context) {
@@ -127,21 +86,23 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         const Spacer(),
-        ..._getLoginButtons(context)
+        LoginButtons()
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            _getVideoBackground(),
-            _getBackgroundColor(),
-            _getContent(context),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Stack(
+            children: <Widget>[
+              _getVideoBackground(),
+              _getBackgroundColor(),
+              _getContent(context),
+            ],
+          ),
         ),
       ),
     );
