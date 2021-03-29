@@ -67,6 +67,8 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: getForm(context),
       ),
     );
