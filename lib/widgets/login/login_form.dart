@@ -19,8 +19,10 @@ class _LoginFormState extends State<LoginForm> {
     }
     return null;
   }
+
   String validatePassword(String value) {
-    final regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    final regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (value.isEmpty) {
       return 'Please enter password';
     } else {
@@ -36,6 +38,8 @@ class _LoginFormState extends State<LoginForm> {
       TextFormField(
         decoration: const InputDecoration(
           labelText: 'Email',
+          fillColor: Colors.white,
+          filled: true,
           icon: Icon(
             Icons.email_rounded,
             color: Colors.black12,
@@ -52,6 +56,8 @@ class _LoginFormState extends State<LoginForm> {
         decoration: const InputDecoration(
           labelText: 'Password',
           hintText: 'Enter password',
+          fillColor: Colors.white,
+          filled: true,
           icon: Icon(
             Icons.lock,
             color: Colors.black12,
@@ -66,10 +72,11 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: getForm(context),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
+        child: Column(
+          children: getForm(context),
+        ),
       ),
     );
   }

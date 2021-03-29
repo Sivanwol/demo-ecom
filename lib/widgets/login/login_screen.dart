@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const SizedBox(
-            height: 50.0,
+            height: 40.0,
           ),
           const Image(
             image: AssetImage('assets/media/logo.jpg'),
@@ -90,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
-          const Spacer(),
           LoginForm(),
           const Spacer(),
           LoginButtons()
