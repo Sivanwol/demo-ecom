@@ -26,16 +26,6 @@ class _LoginButtonsState extends State<LoginButtons> {
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
           child: SignInButton(
-            Buttons.Email,
-            onPressed: () {
-              _showButtonPressDialog(context, 'Email');
-            },
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-          width: double.infinity,
-          child: SignInButton(
             Buttons.Facebook,
             onPressed: () {
               _showButtonPressDialog(context, 'Facebook');
@@ -49,17 +39,6 @@ class _LoginButtonsState extends State<LoginButtons> {
             Buttons.Google,
             onPressed: () {
               _showButtonPressDialog(context, 'Google');
-            },
-          ),
-        ),
-        Container(
-          margin:
-              const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
-          width: double.infinity,
-          child: SignInButton(
-            Buttons.Apple,
-            onPressed: () {
-              _showButtonPressDialog(context, 'Apple');
             },
           ),
         ),

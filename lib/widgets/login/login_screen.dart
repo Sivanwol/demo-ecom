@@ -66,9 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _getContent(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(15.0),
         children: <Widget>[
           const SizedBox(
             height: 40.0,
@@ -80,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const Text(
             'WaveSpy',
             style: TextStyle(color: Colors.white, fontSize: 40),
+            textAlign: TextAlign.center,
           ),
           Container(
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 40.0),
@@ -91,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           LoginForm(),
-          const Spacer(),
           LoginButtons()
         ],
       ),
