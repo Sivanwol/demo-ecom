@@ -1,5 +1,6 @@
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginButtons extends StatefulWidget {
   LoginButtons({Key key}) : super(key: key);
@@ -9,6 +10,14 @@ class LoginButtons extends StatefulWidget {
 }
 
 class _LoginButtonsState extends State<LoginButtons> {
+
+  void _showButtonPressDialog(BuildContext context, String provider) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('$provider Button Pressed!'),
+      backgroundColor: Colors.black26,
+      duration: const Duration(milliseconds: 400),
+    ));
+  }
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -27,42 +36,48 @@ class _LoginButtonsState extends State<LoginButtons> {
               onPressed: () async {
                 Navigator.of(context).pushReplacementNamed(Routes.home);
               },
-              child: const Text('Sign Up with Email',
+              child: const Text('Login with Email',
                 style: TextStyle(color: Colors.white, fontSize: 20),),
+            ),
+          ),Container(
+            margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+            width: double.infinity,
+            child: SignInButton(
+              Buttons.Email,
+              onPressed: () {
+                _showButtonPressDialog(context, 'Email');
+              },
             ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
             width: double.infinity,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                primary: Colors.blueAccent,
-                backgroundColor: Colors.black38.withAlpha(70),
-                padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-              ),
-              onPressed: () async {},
-              child: const Text(
-                'Log back in',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+            child: SignInButton(
+              Buttons.Facebook,
+              onPressed: () {
+                _showButtonPressDialog(context, 'Facebook');
+              },
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+            width: double.infinity,
+            child: SignInButton(
+              Buttons.Google,
+              onPressed: () {
+                _showButtonPressDialog(context, 'Google');
+              },
             ),
           ),
           Container(
             margin:
                 const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
             width: double.infinity,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                primary: Colors.blueAccent,
-                backgroundColor: Colors.black38.withAlpha(70),
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-              ),
-              onPressed: () {},
-              child: const Text(
-                'Later...',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+            child: SignInButton(
+              Buttons.Apple,
+              onPressed: () {
+                _showButtonPressDialog(context, 'Apple');
+              },
             ),
           ),
         ],
