@@ -47,7 +47,9 @@ class _LoginFormState extends State<LoginForm> {
         ),
         validator: validateEmail,
       ),
-      const Spacer(),
+      const SizedBox(
+        height: 20.0,
+      ),
       TextFormField(
         obscureText: true,
         enableSuggestions: false,
