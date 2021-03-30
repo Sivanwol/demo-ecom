@@ -19,6 +19,7 @@ class RemoteConfigService {
       _instance = RemoteConfigService(
         remoteConfig: await RemoteConfig.instance,
       );
+      await _instance.initialize();
     }
     return _instance;
   }
