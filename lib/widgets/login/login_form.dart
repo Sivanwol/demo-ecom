@@ -4,6 +4,7 @@ import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:validators/validators.dart';
+import 'package:demo_ecom/generated/l10n.dart';
 
 
 class LoginForm extends StatefulWidget {
@@ -29,10 +30,10 @@ class _LoginFormState extends State<LoginForm> {
     final regex =
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (value.isEmpty) {
-      return 'Please enter password';
+      return 'Please enter Email';
     } else {
       if (!regex.hasMatch(value)) {
-        return 'Enter valid password';
+        return 'Enter valid email';
       }
     }
     return null;
@@ -54,20 +55,24 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   List<Widget> getForm(BuildContext context) {
+    final input_email = S.of(context).login_form_email;
+    final input_email_hit = S.of(context).login_form_email_hit;
+    final input_password = S.of(context).login_form_password;
+    final input_password_hit = S.of(context).login_form_password_hit;
     return [
       Center(
         child: TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Email',
-            hintText: 'Enter Email',
+          decoration: InputDecoration(
+            labelText: input_email,
+            hintText: input_email_hit,
             fillColor: Colors.white,
             filled: true,
-            icon: Icon(
+            suffixIcon: const Icon(
               Icons.email_rounded,
               color: Colors.black12,
             ),
           ),
-          validator: validateEmail,
+          validator: (value) => validateEmail(value),
         ),
       ),
       const SizedBox(
@@ -80,18 +85,18 @@ class _LoginFormState extends State<LoginForm> {
           enableSuggestions: false,
           autocorrect: false,
           obscuringCharacter: '*',
-          decoration: const InputDecoration(
-            labelText: 'Password',
-            hintText: 'Enter password',
+          decoration: InputDecoration(
+            labelText: input_password,
+            hintText: input_password_hit,
             fillColor: Colors.white,
             filled: true,
-            icon: Icon(
+            suffixIcon: const Icon(
               Icons.lock,
               color: Colors.black12,
             ),
           ),
           // ignore: missing_return
-          validator: validatePassword,
+          validator: (value) => validatePassword(value),
         ),
       ),
       Container(

@@ -1,6 +1,7 @@
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:demo_ecom/generated/l10n.dart';
 
 class LoginButtons extends StatefulWidget {
   LoginButtons({Key key}) : super(key: key);
@@ -20,6 +21,7 @@ class _LoginButtonsState extends State<LoginButtons> {
 
   @override
   Widget build(BuildContext context) {
+    final register_new_user = S.of(context).login_form_register;
     return Column(
       children: <Widget>[
         Container(
@@ -56,9 +58,9 @@ class _LoginButtonsState extends State<LoginButtons> {
             onPressed: () async {
               Navigator.of(context).pushReplacementNamed(Routes.home);
             },
-            child: const Text(
-              'Register with Email',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            child: Text(
+              register_new_user,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
         ),
