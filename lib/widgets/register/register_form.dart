@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 
 
@@ -15,13 +14,13 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  void onLogin(BuildContext context) {
+  void onRegister(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Yaya We Login'),
       backgroundColor: Colors.black26,
       duration: Duration(milliseconds: 400),
     ));
-    var duration = const Duration(milliseconds: 1000);
+    var duration = const Duration(milliseconds: 2000);
     Timer(duration, () => redirect(context));
   }
   redirect(BuildContext context) async {
@@ -36,6 +35,7 @@ class _RegisterFormState extends State<RegisterForm> {
     final input_email_hit = S.of(context).login_form_email_hit;
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
+    final submit_register = S.of(context).register_new_user;
     return [
       Center(
         child: TextFormField(
@@ -79,11 +79,11 @@ class _RegisterFormState extends State<RegisterForm> {
       Container(
         margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
         width: double.infinity,
-        child: SignInButton(
-          Buttons.Email,
+        child: ElevatedButton(
           onPressed: () {
-            onLogin(context);
+            onRegister(context);
           },
+          child: Text(submit_register),
         ),
       ),
     ];

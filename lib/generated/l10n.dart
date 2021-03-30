@@ -145,6 +145,16 @@ class S {
     );
   }
 
+  /// `Register User`
+  String get register_new_user {
+    return Intl.message(
+      'Register User',
+      name: 'register_new_user',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Email`
   String get validation_form_email_field_empty {
     return Intl.message(
