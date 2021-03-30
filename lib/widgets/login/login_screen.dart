@@ -4,6 +4,7 @@ import 'package:demo_ecom/widgets/login/login_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
+import 'package:demo_ecom/generated/l10n.dart';
 
 import 'login_form.dart';
 
@@ -64,35 +65,36 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _getContent(BuildContext context) {
+    final splogen_1 = S.of(context).login_slogen;
+    final splogen_2 = S.of(context).login_slogen2;
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(15.0),
         children: <Widget>[
           const SizedBox(
-            height: 50.0,
+            height: 40.0,
           ),
           const Image(
             image: AssetImage('assets/media/logo.jpg'),
             width: 150.0,
           ),
-          const Text(
-            'WaveSpy',
+          Text(
+            splogen_1,
             style: TextStyle(color: Colors.white, fontSize: 40),
+            textAlign: TextAlign.center,
           ),
           Container(
             margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 40.0),
             alignment: Alignment.center,
-            child: const Text(
-              'View and share videos of current ocean conditions.',
+            child: Text(
+              splogen_2,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
-          const Spacer(),
           LoginForm(),
-          const Spacer(),
           LoginButtons()
         ],
       ),

@@ -1,5 +1,11 @@
+import 'dart:async';
+
+import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:validators/validators.dart';
+import 'package:demo_ecom/generated/l10n.dart';
+
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -19,55 +25,101 @@ class _LoginFormState extends State<LoginForm> {
     }
     return null;
   }
+
   String validatePassword(String value) {
-    final regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    final regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (value.isEmpty) {
-      return 'Please enter password';
+      return 'Please enter Email';
     } else {
       if (!regex.hasMatch(value)) {
-        return 'Enter valid password';
+        return 'Enter valid email';
       }
     }
     return null;
   }
+  void onLogin(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Yaya We Login'),
+      backgroundColor: Colors.black26,
+      duration: Duration(milliseconds: 400),
+    ));
+    var duration = const Duration(milliseconds: 1000);
+    Timer(duration, () => redirect(context));
+  }
+  redirect(BuildContext context) async {
+    // final applicationProvider = Provider.of<ApplicationProvider>(context);
+    // applicationProvider.stopSplashScreen();
+    Navigator.of(context).pushReplacementNamed(Routes.home);
+
+  }
 
   List<Widget> getForm(BuildContext context) {
+    final input_email = S.of(context).login_form_email;
+    final input_email_hit = S.of(context).login_form_email_hit;
+    final input_password = S.of(context).login_form_password;
+    final input_password_hit = S.of(context).login_form_password_hit;
     return [
-      TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Email',
-          icon: Icon(
-            Icons.email_rounded,
-            color: Colors.black12,
+      Center(
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelText: input_email,
+            hintText: input_email_hit,
+            fillColor: Colors.white,
+            filled: true,
+            suffixIcon: const Icon(
+              Icons.email_rounded,
+              color: Colors.black12,
+            ),
           ),
+          validator: (value) => validateEmail(value),
         ),
-        validator: validateEmail,
       ),
-      const Spacer(),
-      TextFormField(
-        obscureText: true,
-        enableSuggestions: false,
-        autocorrect: false,
-        obscuringCharacter: '*',
-        decoration: const InputDecoration(
-          labelText: 'Password',
-          hintText: 'Enter password',
-          icon: Icon(
-            Icons.lock,
-            color: Colors.black12,
+      const SizedBox(
+        height: 20.0,
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: TextFormField(
+          obscureText: true,
+          enableSuggestions: false,
+          autocorrect: false,
+          obscuringCharacter: '*',
+          decoration: InputDecoration(
+            labelText: input_password,
+            hintText: input_password_hit,
+            fillColor: Colors.white,
+            filled: true,
+            suffixIcon: const Icon(
+              Icons.lock,
+              color: Colors.black12,
+            ),
           ),
+          // ignore: missing_return
+          validator: (value) => validatePassword(value),
         ),
-        // ignore: missing_return
-        validator: validatePassword,
+      ),
+      Container(
+        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+        width: double.infinity,
+        child: SignInButton(
+          Buttons.Email,
+          onPressed: () {
+            onLogin(context);
+          },
+        ),
       ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: getForm(context),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
+      child: Center(
+        child: Column(
+          children: getForm(context),
+        ),
       ),
     );
   }

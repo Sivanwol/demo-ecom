@@ -21,6 +21,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "login_form_email" : MessageLookupByLibrary.simpleMessage("Email"),
+    "login_form_email_hit" : MessageLookupByLibrary.simpleMessage("Enter an Email"),
+    "login_form_password" : MessageLookupByLibrary.simpleMessage("Password"),
+    "login_form_password_hit" : MessageLookupByLibrary.simpleMessage("Enter a password"),
+    "login_form_register" : MessageLookupByLibrary.simpleMessage("Register New User"),
+    "login_slogen" : MessageLookupByLibrary.simpleMessage("Dome Ecom"),
+    "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
     "title" : MessageLookupByLibrary.simpleMessage("Testing")

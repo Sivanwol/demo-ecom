@@ -64,6 +64,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Dome Ecom`
+  String get login_slogen {
+    return Intl.message(
+      'Dome Ecom',
+      name: 'login_slogen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What you wise it was we want ...`
+  String get login_slogen2 {
+    return Intl.message(
+      'What you wise it was we want ...',
+      name: 'login_slogen2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get login_form_email {
+    return Intl.message(
+      'Email',
+      name: 'login_form_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter an Email`
+  String get login_form_email_hit {
+    return Intl.message(
+      'Enter an Email',
+      name: 'login_form_email_hit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get login_form_password {
+    return Intl.message(
+      'Password',
+      name: 'login_form_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a password`
+  String get login_form_password_hit {
+    return Intl.message(
+      'Enter a password',
+      name: 'login_form_password_hit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register New User`
+  String get login_form_register {
+    return Intl.message(
+      'Register New User',
+      name: 'login_form_register',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
