@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:logger/logger.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 class LoggerService {
   final Logger logger = Logger();
@@ -10,9 +13,30 @@ class LoggerService {
 
   LoggerService._internal();
 
-  void verbose(message, params) => logger.v(message, params);
-  void debug(message, params) => logger.d(message, params);
-  void info(message, params) => logger.i(message, params);
-  void error(message, params) => logger.e(message, params);
-  void warn(message, params) => logger.w(message, params);
+  void verbose(String message, {Map<String, dynamic> params = const {}}) => logger.v(message, const JsonEncoder().convert(params));
+  void debug(String message, {Map<String, dynamic> params = const {}}) => logger.d(message, const JsonEncoder().convert(params));
+  void info(String message, {Map<String, dynamic> params = const {}}) {
+    logger.i(message, const JsonEncoder().convert(params));
+    params.forEach((key, value) {
+      FirebaseCrashlytics.instance.setCustomKey(key, value);
+    });
+
+    FirebaseCrashlytics.instance.log(message);
+  }
+  void error(String message, StackTrace stack , {Map<String, dynamic> params = const {}}) {
+    logger.e(message, const JsonEncoder().convert(params), stack);
+    params.forEach((key, value) {
+      FirebaseCrashlytics.instance.setCustomKey(key, value);
+    });
+
+    FirebaseCrashlytics.instance.recordError(message, stack);
+  }
+  void warn(String message, {Map<String, dynamic> params = const {}}) {
+    logger.i(message, const JsonEncoder().convert(params));
+    params.forEach((key, value) {
+      FirebaseCrashlytics.instance.setCustomKey(key, value);
+    });
+
+    FirebaseCrashlytics.instance.log(message);
+  }
 }

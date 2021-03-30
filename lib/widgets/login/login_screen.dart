@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:demo_ecom/widgets/login/login_buttons.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
@@ -66,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _getContent(BuildContext context) {
-    throw 'error_example';
     final splogen_1 = S.of(context).login_slogen;
     final splogen_2 = S.of(context).login_slogen2;
     return Form(

@@ -23,9 +23,6 @@ void main() async {
       errorAndStacktrace.last,
     );
   }).sendPort);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runZonedGuarded<Future<void>>(() async {
-    runApp(Application());
-  }, FirebaseCrashlytics.instance.recordError);
+  runApp(Application());
 
 }

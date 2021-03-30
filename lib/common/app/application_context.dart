@@ -3,6 +3,7 @@ import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/providers/application.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -23,6 +24,7 @@ class ApplicationContext extends StatelessWidget {
       enableLog: true,
       title: ApplicationConfig.application_title,
       theme: basicTheme,
+      builder: EasyLoading.init(),
       routes: Routes.routes,
       initialRoute: getInitialRoute(context),
     );
