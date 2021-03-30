@@ -3,26 +3,24 @@ import 'dart:async';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 
 
-class LoginForm extends StatefulWidget {
-  LoginForm({Key key}) : super(key: key);
+class RegisterForm extends StatefulWidget {
+  RegisterForm({Key key}) : super(key: key);
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
-
-  void onLogin(BuildContext context) {
+class _RegisterFormState extends State<RegisterForm> {
+  void onRegister(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Yaya We Login'),
       backgroundColor: Colors.black26,
       duration: Duration(milliseconds: 400),
     ));
-    var duration = const Duration(milliseconds: 1000);
+    var duration = const Duration(milliseconds: 2000);
     Timer(duration, () => redirect(context));
   }
   redirect(BuildContext context) async {
@@ -37,6 +35,7 @@ class _LoginFormState extends State<LoginForm> {
     final input_email_hit = S.of(context).login_form_email_hit;
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
+    final submit_register = S.of(context).register_new_user;
     return [
       Center(
         child: TextFormField(
@@ -80,11 +79,11 @@ class _LoginFormState extends State<LoginForm> {
       Container(
         margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
         width: double.infinity,
-        child: SignInButton(
-          Buttons.Email,
+        child: ElevatedButton(
           onPressed: () {
-            onLogin(context);
+            onRegister(context);
           },
+          child: Text(submit_register),
         ),
       ),
     ];

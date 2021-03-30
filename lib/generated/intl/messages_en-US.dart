@@ -28,8 +28,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_form_register" : MessageLookupByLibrary.simpleMessage("Register New User"),
     "login_slogen" : MessageLookupByLibrary.simpleMessage("Dome Ecom"),
     "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
+    "register_new_user" : MessageLookupByLibrary.simpleMessage("Register User"),
+    "register_topbar_title" : MessageLookupByLibrary.simpleMessage("Back to login"),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
-    "title" : MessageLookupByLibrary.simpleMessage("Testing")
+    "title" : MessageLookupByLibrary.simpleMessage("Testing"),
+    "validation_form_email_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_email_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_password_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Password"),
+    "validation_form_password_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Valid Password")
   };
 }

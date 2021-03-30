@@ -46,6 +46,8 @@ dependencies:
   # localization
   intl: ^0.17.0
   # ui tools
+  sliverbar_with_card: ^0.1.5
+  flutter_password_strength: ^0.1.6
   flutter_signin_button: ^1.1.0
   animations: ^2.0.0
   pull_to_refresh: ^1.6.4
