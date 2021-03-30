@@ -19,12 +19,19 @@ class ApplicationContext extends StatefulWidget {
 class _ApplicationContextState extends State<ApplicationContext> {
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initData();
+    });
+  }
+  Future<void> initData() async {
     // @todo To remove this code this is where loading for Ql And DIO code need be handle and preload status
     final ins = await RemoteConfigService.getInstance();
     final params =  { 's': ins.getShopifySecret, 't': ins.getShopifyToken };
     LoggerService().debug('params',params: params );
+
   }
   @override
   Widget build(BuildContext context) {
