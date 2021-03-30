@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_form_register" : MessageLookupByLibrary.simpleMessage("Register New User"),
     "login_slogen" : MessageLookupByLibrary.simpleMessage("Dome Ecom"),
     "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
+    "register_topbar_title" : MessageLookupByLibrary.simpleMessage("Back to login"),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
     "title" : MessageLookupByLibrary.simpleMessage("Testing"),

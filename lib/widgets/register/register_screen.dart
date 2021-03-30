@@ -4,7 +4,7 @@ import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
-// import 'package:demo_ecom/generated/l10n.dart';
+import 'package:demo_ecom/generated/l10n.dart';
 
 import 'register_form.dart';
 
@@ -86,11 +86,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bar_title = S.of(context).register_topbar_title;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
+          title: Text('Back to login', style: const TextStyle(
+            color: Colors.white54
+          ),),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
           leading: IconButton(

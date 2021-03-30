@@ -135,6 +135,16 @@ class S {
     );
   }
 
+  /// `Back to login`
+  String get register_topbar_title {
+    return Intl.message(
+      'Back to login',
+      name: 'register_topbar_title',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Email`
   String get validation_form_email_field_empty {
     return Intl.message(
