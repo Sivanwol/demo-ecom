@@ -1,6 +1,6 @@
+import 'package:demo_ecom/common/utils/enums.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-const String _splashTimeout = 'splash timeout time in MS';
 
 class RemoteConfigService {
   final RemoteConfig _remoteConfig;
@@ -9,7 +9,8 @@ class RemoteConfigService {
       : _remoteConfig = remoteConfig;
 
   final defaults = <String, dynamic>{
-    _splashTimeout: 3000
+    RemoteConfigKeys.shopify_token.toShortString(): '',
+    RemoteConfigKeys.shopify_secret.toShortString(): ''
   };
 
   static RemoteConfigService _instance;
@@ -18,11 +19,13 @@ class RemoteConfigService {
       _instance = RemoteConfigService(
         remoteConfig: await RemoteConfig.instance,
       );
+      await _instance.initialize();
     }
     return _instance;
   }
 
-  int get getTimeoutSplash => _remoteConfig.getInt(_splashTimeout);
+  String get getShopifyToken => _remoteConfig.getString(RemoteConfigKeys.shopify_token.toShortString());
+  String get getShopifySecret => _remoteConfig.getString(RemoteConfigKeys.shopify_secret.toShortString());
 
   Future initialize() async {
     try {
@@ -38,6 +41,5 @@ class RemoteConfigService {
   Future _fetchAndActivate() async {
     await _remoteConfig.fetch(expiration: Duration(days: 1));
     await _remoteConfig.activateFetched();
-    print('int::: $getTimeoutSplash');
   }
 }

@@ -8,10 +8,13 @@ environment_config:
     splashTimeout:
       default: 3000
       type: int
+    enable_crashlytics: # this param relevant only in debug mode this will active crashlytics on debug for testing
+      default: false
+      type: bool
     demo_mode:
       dotenv: true
       default: true
       type: bool
 
 # run env generation via this command
-# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" ....
+# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --enable_crashlytics=true ....
