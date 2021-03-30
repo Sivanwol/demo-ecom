@@ -134,6 +134,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Please Enter Email`
+  String get validation_form_email_field_empty {
+    return Intl.message(
+      'Please Enter Email',
+      name: 'validation_form_email_field_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Email`
+  String get validation_form_email_field_not_valid {
+    return Intl.message(
+      'Please Enter Email',
+      name: 'validation_form_email_field_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Password`
+  String get validation_form_password_field_empty {
+    return Intl.message(
+      'Please Enter Password',
+      name: 'validation_form_password_field_empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Valid Password`
+  String get validation_form_password_field_not_valid {
+    return Intl.message(
+      'Please Enter Valid Password',
+      name: 'validation_form_password_field_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

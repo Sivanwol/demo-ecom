@@ -389,6 +389,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_password_strength:
+    dependency: "direct main"
+    description:
+      name: flutter_password_strength
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.6"
   flutter_rename_app:
     dependency: "direct dev"
     description:
@@ -803,6 +810,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliverbar_with_card:
+    dependency: "direct main"
+    description:
+      name: sliverbar_with_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   source_gen:
     dependency: "direct overridden"
     description:

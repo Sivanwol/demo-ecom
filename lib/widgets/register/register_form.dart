@@ -7,15 +7,14 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 
 
-class LoginForm extends StatefulWidget {
-  LoginForm({Key key}) : super(key: key);
+class RegisterForm extends StatefulWidget {
+  RegisterForm({Key key}) : super(key: key);
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _RegisterFormState createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
-
+class _RegisterFormState extends State<RegisterForm> {
   void onLogin(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Yaya We Login'),

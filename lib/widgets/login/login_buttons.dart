@@ -56,7 +56,7 @@ class _LoginButtonsState extends State<LoginButtons> {
                   borderRadius: BorderRadius.all(Radius.circular(30))),
             ),
             onPressed: () async {
-              Navigator.of(context).pushReplacementNamed(Routes.home);
+              Navigator.of(context).pushReplacementNamed(Routes.register);
             },
             child: Text(
               register_new_user,

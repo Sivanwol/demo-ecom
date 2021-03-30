@@ -30,6 +30,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
-    "title" : MessageLookupByLibrary.simpleMessage("Testing")
+    "title" : MessageLookupByLibrary.simpleMessage("Testing"),
+    "validation_form_email_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_email_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_password_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Password"),
+    "validation_form_password_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Valid Password")
   };
 }
