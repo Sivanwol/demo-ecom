@@ -53,7 +53,7 @@ GoogleService-Info.plist
 
 # Firebase Hosting
 firebase-debug.log
-
+remoteconfig.template.json
 # Build generated
 build/
 DerivedData/
