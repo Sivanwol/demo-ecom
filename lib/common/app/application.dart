@@ -1,22 +1,37 @@
+import 'package:async/async.dart';
 import 'package:demo_ecom/common/app/application_context.dart';
 import 'package:demo_ecom/common/utils/firebase_utils.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/providers/application.provider.dart';
 import 'package:demo_ecom/providers/home.provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import 'application_context_not_active.dart';
 
-class Application extends StatelessWidget {
+class Application extends StatefulWidget {
+  @override
+  _ApplicationState createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  final AsyncMemoizer _memoizer = AsyncMemoizer();
+
+  Future<FirebaseApp> runFirebaseSetup() async {
+    this._memoizer.runOnce(() async {
+      return setupFirebase();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: setupFirebase(),
-      builder: (context, snapshot) {
+    return FutureBuilder<FirebaseApp>(
+      future: runFirebaseSetup(),
+      builder: (context, AsyncSnapshot<FirebaseApp> snapshot) {
         LoggerService().debug('Application Bootup');
         // EasyLoading.instance.indicatorWidget = SpinKitFadingCircle(
         //   itemBuilder: (BuildContext context, int index) {
