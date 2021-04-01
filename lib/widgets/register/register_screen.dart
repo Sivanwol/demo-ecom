@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void initState() {
     super.initState();
 
+    LoggerService().info('Load Register Screen');
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

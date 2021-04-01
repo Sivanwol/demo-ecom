@@ -21,7 +21,7 @@ environment_config:
       type: bool
     backend_api:
       default: "http://10.0.0.31:5001"
-      type: string
+      type: String
     firebase_emulator:
       type: bool
       default: false

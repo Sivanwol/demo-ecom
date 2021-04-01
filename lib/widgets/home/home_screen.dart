@@ -1,3 +1,4 @@
+import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/providers/home.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
@@ -13,10 +14,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    LoggerService().info('Load Home Screen');
+  }
 
+  @override
+  Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context);
-    final _counter =homeProvider.counter;
+    final _counter = homeProvider.counter;
     final appTitle = S.of(context).title;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.

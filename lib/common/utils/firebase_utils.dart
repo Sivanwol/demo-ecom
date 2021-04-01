@@ -1,0 +1,15 @@
+import 'package:demo_ecom/common/config/application_config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+Future<void> setupFirebase() async {
+  if (ApplicationConfig.debug_mode && ApplicationConfig.firebase_emulator) {
+    FirebaseAuth.instance.useEmulator('${ApplicationConfig.firebase_address}:9099');
+    // Firestore.instance.settings(
+    //   host: host,
+    //   sslEnabled: false,
+    //   persistenceEnabled: false,
+    // );
+  }
+  Firebase.initializeApp();
+}

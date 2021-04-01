@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:demo_ecom/common/config/application_config.dart';
+import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
@@ -17,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   // ignore: avoid_void_async
   void initState() {
     super.initState();
+    LoggerService().info('Load Splash Screen');
     startTimer(context);
   }
   @override
