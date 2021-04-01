@@ -52,7 +52,7 @@ google-services.json
 GoogleService-Info.plist
 
 # Firebase Hosting
-firebase-debug.log
+*.log
 remoteconfig.template.json
 # Build generated
 build/

@@ -1,9 +1,16 @@
-# Compiled JavaScript files
-lib/**/*.js
-lib/**/*.js.map
-
-# TypeScript v1 declaration files
+## Compiled JavaScript files
+**/*.js
+**/*.js.map
+!rollup.config.js
+# Typescript v1 declaration files
 typings/
-
-# Node.js dependency directory
+firebase-*.log
 node_modules/
+serviceAccountKey.json
+.vscode/*
+.idea/
+!.vscode/launch.json
+.nyc_output
+coverage
+node_modules/
+!jest.config.js
