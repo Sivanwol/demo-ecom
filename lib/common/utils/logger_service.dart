@@ -16,7 +16,8 @@ class LoggerService {
   void verbose(String message, {Map<String, dynamic> params = const {}}) => logger.v(message, params.isEmpty?null:const JsonEncoder().convert(params));
   void debug(String message, {Map<String, dynamic> params = const {}}) => logger.d(message, params.isEmpty?null:const JsonEncoder().convert(params));
   void info(String message, {Map<String, dynamic> params = const {}}) {
-    logger.i(message, const JsonEncoder().convert(params));
+    logger.i(
+        message, params.isEmpty ? null : const JsonEncoder().convert(params));
     params.forEach((key, value) {
       FirebaseCrashlytics.instance.setCustomKey(key, value);
     });
