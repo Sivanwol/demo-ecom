@@ -22,5 +22,5 @@ Future<FirebaseApp> setupFirebase() async {
   }
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  return await Firebase.initializeApp();
+  return Firebase.initializeApp();
 }
