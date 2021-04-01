@@ -15,14 +15,5 @@ Future<FirebaseApp> setupFirebase() async {
     // );
   }
 
-  if (ApplicationConfig.debug_mode && !ApplicationConfig.enable_crashlytics) {
-    // Force disable Crashlytics collection while doing every day development.
-    // Temporarily toggle this to true if you want to test crash reporting in your app.
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-  }
-
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  return Firebase.initializeApp(
-    name: ApplicationConfig.firebase_app,
-  );
+  return Firebase.initializeApp();
 }
