@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wolberg.pro.demo.demo_ecom">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="demo_ecom"
         android:icon="@mipmap/ic_launcher">
         <activity

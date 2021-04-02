@@ -27,7 +27,6 @@ dependencies:
     sdk: flutter
 
   # Service locator
-  rxdart: ^0.26.0
   provider: ^5.0.0
 
   # Connectivity
@@ -63,7 +62,7 @@ dependencies:
   introduction_screen: ^2.0.0
   flash: ^1.5.1
   material_floating_search_bar: ^0.3.3
-  video_player: ^2.1.0
+  video_player: ^2.0.2
   chewie: ^1.0.0
   # ui icons
 

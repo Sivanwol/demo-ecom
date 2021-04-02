@@ -40,7 +40,7 @@ analyzer:
   exclude:
     - "vendors/**"
     - "assets/**"
-    - main.config.dart
+    - lib/main.dart
     - "**/*.g.dart"
     - "**/*.gr.dart"
     - "lib/generated/**"
