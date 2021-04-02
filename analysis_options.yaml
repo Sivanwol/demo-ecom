@@ -43,5 +43,6 @@ analyzer:
     - main.config.dart
     - "**/*.g.dart"
     - "**/*.gr.dart"
+    - "lib/generated/**"
     - "lib/common/router/router.gr.dart"
     - "component_templates"
