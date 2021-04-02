@@ -19,7 +19,7 @@ main() async {
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   Isolate.current.addErrorListener(RawReceivePort((pair) async {
-    final List<dynamic> errorAndStacktrace = pair;
+    final errorAndStacktrace = pair;
     await FirebaseCrashlytics.instance.recordError(
       errorAndStacktrace.first,
       errorAndStacktrace.last,

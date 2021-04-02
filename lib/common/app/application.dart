@@ -1,7 +1,7 @@
 // import 'package:async/async.dart';
 // import 'package:demo_ecom/common/app/application_context.dart';
 // import 'package:demo_ecom/common/utils/firebase_utils.dart';
-import 'package:demo_ecom/common/utils/logger_service.dart';
+// import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/providers/application.provider.dart';
 import 'package:demo_ecom/providers/home.provider.dart';
 
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'application_context.dart';
-import 'application_context_not_active.dart';
+// import 'application_context_not_active.dart';
 
 class Application extends StatefulWidget {
   @override
