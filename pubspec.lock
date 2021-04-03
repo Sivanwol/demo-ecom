@@ -29,13 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  ansicolor:
-    dependency: transitive
-    description:
-      name: ansicolor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
   archive:
     dependency: transitive
     description:
@@ -218,13 +211,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  data_connection_checker:
-    dependency: "direct main"
-    description:
-      name: data_connection_checker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.4"
   dio:
     dependency: "direct main"
     description:
@@ -356,13 +342,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_easyloading:
-    dependency: "direct main"
-    description:
-      name: flutter_easyloading
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -396,13 +375,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6"
-  flutter_rename_app:
-    dependency: "direct dev"
-    description:
-      name: flutter_rename_app
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter_signin_button:
     dependency: "direct main"
     description:
@@ -410,13 +382,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  flutter_spinkit:
-    dependency: "direct main"
-    description:
-      name: flutter_spinkit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -707,13 +672,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
-  process_run:
-    dependency: transitive
-    description:
-      name: process_run
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.12+3"
   provider:
     dependency: "direct main"
     description:
@@ -837,7 +795,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   stack_trace:
     dependency: "direct main"
     description:
@@ -1008,4 +966,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=1.24.0-0"

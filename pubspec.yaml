@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -30,7 +30,6 @@ dependencies:
   provider: ^5.0.0
 
   # Connectivity
-  data_connection_checker: ^0.3.4
   # Logging
   logger: ^1.0.0
   # Json
@@ -53,10 +52,8 @@ dependencies:
   animations: ^2.0.0
   pull_to_refresh: ^1.6.4
   get: ^3.26.0
-  flutter_easyloading: ^3.0.0
   responsive_framework: ^0.1.0
   animated_text_kit: ^4.1.0
-  flutter_spinkit: "^5.0.0"
   convex_bottom_bar: ^3.0.0
   introduction_screen: ^2.0.0
   flash: ^1.5.1
@@ -109,12 +106,12 @@ dev_dependencies:
   mockito: ^5.0.2
   flutter_launcher_icons: ^0.9.0
   environment_config: ^2.2.5
-  flutter_rename_app: ^1.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
+  generate: true
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -149,35 +146,14 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-package
 
-  # To hide the notification bar, use the fullscreen parameter.  Has no affect in web since web
-  # has no notification bar.  Defaults to false.
-  # NOTE: Unlike Android, iOS will not automatically show the notification bar when the app loads.
-  #       To show the notification bar, add the following code to your Flutter app:
-  #       WidgetsFlutterBinding.ensureInitialized();
-  #       SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  #fullscreen: true
-
-  # If you have changed the name(s) of your info.plist file(s), you can specify the filename(s)
-  # with the info_plist_files parameter.  Remove only the # characters in the three lines below,
-  # do not remove any spaces:
-  #info_plist_files:
-  #  - 'ios/Runner/Info-Debug.plist'
-  #  - 'ios/Runner/Info-Release.plist'
 flutter_intl:
   enabled: true
   localizely:
     project_id: c4305176-c927-4336-80bd-7bbc91f25b3d
 flutter_icons:
-  image_path: 'assets/assets/icons/app_icon.png'
+  image_path: 'assets/icons/app_icon.png'
   android: true
   ios: true
-
-flutter_rename_app:
-  application_name: Demo Ecom
-  dart_package_name: demo_ecom
-  application_id: com.wolberg.pro.demo
-  bundle_id: com.wolberg.pro.demo
-  android_package_name: com.wolberg.pro.demo
 targets:
   $default:
     builders:
