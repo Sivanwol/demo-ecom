@@ -39,7 +39,7 @@ class RemoteConfigService {
   }
 
   Future _fetchAndActivate() async {
-    await _remoteConfig.fetch(expiration: Duration(days: 1));
+    await _remoteConfig.fetch(expiration: const Duration(days: 1));
     await _remoteConfig.activateFetched();
   }
 }
