@@ -30,7 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
       DeviceOrientation.portraitDown,
     ]);
     LoggerService().info('Load Login Screen');
-    _controller = VideoPlayerController.asset('assets/media/login-vid.mp4');
+    _controller = VideoPlayerController.network(
+        'https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4');//VideoPlayerController.asset('assets/media/login-vid.mp4');
     _controller.initialize().then((_) {
       _controller.setLooping(true);
       Timer(const Duration(milliseconds: 100), () {
