@@ -1,9 +1,7 @@
-import 'dart:async';
-
+import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
+import 'package:demo_ecom/widgets/login/login_background.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 
 import 'register_form.dart';
@@ -17,51 +15,21 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  VideoPlayerController _controller;
-  bool _visible = false;
 
   @override
   void initState() {
     super.initState();
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    _controller = VideoPlayerController.asset('assets/media/login-vid.mp4');
-    _controller.initialize().then((_) {
-      _controller.setLooping(true);
-      Timer(const Duration(milliseconds: 100), () {
-        setState(() {
-          _controller.play();
-          _visible = true;
-        });
-      });
-    });
+    LoggerService().info('Load Register Screen');
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (_controller != null) {
-      _controller.dispose();
-      _controller = null;
-    }
-  }
-
-  Widget _getVideoBackground() {
-    return AnimatedOpacity(
-      opacity: _visible ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 1000),
-      child: VideoPlayer(_controller),
-    );
   }
 
   Widget _getBackgroundColor() {
-    return Container(
-      color: Colors.black.withAlpha(120),
-    );
+    return LoginBackground();
   }
 
   Widget _getContent(BuildContext context) {
@@ -109,7 +77,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: Center(
           child: Stack(
             children: <Widget>[
-              _getVideoBackground(),
               _getBackgroundColor(),
               _getContent(context),
             ],

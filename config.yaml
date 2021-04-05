@@ -15,6 +15,22 @@ environment_config:
       dotenv: true
       default: true
       type: bool
+    debug_mode:
+      dotenv: true
+      default: true
+      type: bool
+    backend_api:
+      default: "http://10.0.0.31:5001"
+      type: String
+    firebase_app:
+      type: String
+    firebase_emulator:
+      type: bool
+      default: false
+    firebase_address:
+      dotenv: true
+      default: "10.0.0.31"
+      type: String
 
 # run env generation via this command
-# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --enable_crashlytics=true ....
+# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="" --backend_api="10.0.0.31:5001" --enable_crashlytics=true ....
