@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:logger/logger.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoggerService {
   final Logger logger = Logger();
@@ -18,26 +19,33 @@ class LoggerService {
   void info(String message, {Map<String, dynamic> params = const {}}) {
     logger.i(
         message, params.isEmpty ? null : const JsonEncoder().convert(params));
-    params.forEach((key, value) {
-      FirebaseCrashlytics.instance.setCustomKey(key, value);
-    });
+    if (!kIsWeb) {
+      params.forEach((key, value) {
+        FirebaseCrashlytics.instance.setCustomKey(key, value);
+      });
 
-    FirebaseCrashlytics.instance.log(message);
+      FirebaseCrashlytics.instance.log(message);
+    }
   }
   void error(String message, StackTrace stack , {Map<String, dynamic> params = const {}}) {
-    logger.e(message, params.isEmpty?null:const JsonEncoder().convert(params), stack);
-    params.forEach((key, value) {
-      FirebaseCrashlytics.instance.setCustomKey(key, value);
-    });
-
-    FirebaseCrashlytics.instance.recordError(message, stack);
+    logger.e(message,
+        params.isEmpty ? null : const JsonEncoder().convert(params), stack);
+    if (!kIsWeb) {
+      params.forEach((key, value) {
+        FirebaseCrashlytics.instance.setCustomKey(key, value);
+      });
+      FirebaseCrashlytics.instance.recordError(message, stack);
+    }
   }
   void warn(String message, {Map<String, dynamic> params = const {}}) {
-    logger.i(message, params.isEmpty?null:const JsonEncoder().convert(params));
-    params.forEach((key, value) {
-      FirebaseCrashlytics.instance.setCustomKey(key, value);
-    });
+    logger.i(
+        message, params.isEmpty ? null : const JsonEncoder().convert(params));
+    if (!kIsWeb) {
+      params.forEach((key, value) {
+        FirebaseCrashlytics.instance.setCustomKey(key, value);
+      });
 
-    FirebaseCrashlytics.instance.log(message);
+      FirebaseCrashlytics.instance.log(message);
+    }
   }
 }
