@@ -4,7 +4,7 @@ import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
-
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({Key key}) : super(key: key);
@@ -23,11 +23,11 @@ class _RegisterFormState extends State<RegisterForm> {
     var duration = const Duration(milliseconds: 2000);
     Timer(duration, () => redirect(context));
   }
+
   redirect(BuildContext context) async {
     // final applicationProvider = Provider.of<ApplicationProvider>(context);
     // applicationProvider.stopSplashScreen();
     Navigator.of(context).pushReplacementNamed(Routes.home);
-
   }
 
   List<Widget> getForm(BuildContext context) {
@@ -35,7 +35,6 @@ class _RegisterFormState extends State<RegisterForm> {
     final input_email_hit = S.of(context).login_form_email_hit;
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
-    final submit_register = S.of(context).register_new_user;
     return [
       Center(
         child: TextFormField(
@@ -49,7 +48,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.black12,
             ),
           ),
-          validator: (value) => ValidationForms().validateEmail(context,value),
+          validator: (value) => ValidationForms().validateEmail(context, value),
         ),
       ),
       const SizedBox(
@@ -73,20 +72,70 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           // ignore: missing_return
-          validator: (value) => ValidationForms().validatePassword(context,value),
+          validator: (value) =>
+              ValidationForms().validatePassword(context, value),
         ),
       ),
-      Container(
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            onRegister(context);
-          },
-          child: Text(submit_register),
-        ),
-      ),
+      buildButtons(context),
     ];
+  }
+
+  Widget buildButtons(BuildContext context) {
+    final submit_register = S
+        .of(context)
+        .register_new_user;
+    final divider_or = S
+        .of(context)
+        .register_button_or_dividers;
+    final register_signup_google = S
+        .of(context)
+        .register_signup_google;
+    final register_signup_facebook = S
+        .of(context)
+        .register_signup_facebook;
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+              primary: const Color.fromRGBO(47, 54, 65, 1.0),
+            ),
+            onPressed: () {
+              onRegister(context);
+            },
+            label: Text(submit_register),
+            icon: const Icon(Icons.email_rounded),
+          ),
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Divider(),
+            ),
+            Text(divider_or),
+            const Expanded(
+              child: Divider(),
+            ),
+          ],
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+          width: double.infinity,
+          child: SignInButton(
+            Buttons.Google,
+            text: register_signup_google,
+            onPressed: () {},
+          ),
+        ),
+      ],
+    );
   }
 
   @override

@@ -65,10 +65,10 @@ class S {
     );
   }
 
-  /// `Dome Ecom`
+  /// `Demo Ecom`
   String get login_slogen {
     return Intl.message(
-      'Dome Ecom',
+      'Demo Ecom',
       name: 'login_slogen',
       desc: '',
       args: [],
@@ -150,6 +150,36 @@ class S {
     return Intl.message(
       'Register User',
       name: 'register_new_user',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OR`
+  String get register_button_or_dividers {
+    return Intl.message(
+      'OR',
+      name: 'register_button_or_dividers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with Google`
+  String get register_signup_google {
+    return Intl.message(
+      'Sign up with Google',
+      name: 'register_signup_google',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with Facebook`
+  String get register_signup_facebook {
+    return Intl.message(
+      'Sign up with Facebook',
+      name: 'register_signup_facebook',
       desc: '',
       args: [],
     );
