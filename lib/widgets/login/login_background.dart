@@ -9,11 +9,11 @@ class LoginBackground extends StatelessWidget {
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: ExactAssetImage('assets/media/background.png'),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
         child: Container(
           decoration: BoxDecoration(color: Colors.white.withOpacity(0.0)),
         ),

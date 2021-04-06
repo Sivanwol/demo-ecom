@@ -31,6 +31,9 @@ environment_config:
       dotenv: true
       default: "10.0.0.31"
       type: String
+    toc_url:
+      default: "https://www.fleetster.net/legal/standard-terms-and-conditions.pdf"
+      type: String
 
 # run env generation via this command
 # flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="" --backend_api="10.0.0.31:5001" --enable_crashlytics=true ....

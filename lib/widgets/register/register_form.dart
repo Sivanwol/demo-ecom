@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({Key key}) : super(key: key);
@@ -35,17 +37,24 @@ class _RegisterFormState extends State<RegisterForm> {
     final input_email_hit = S.of(context).login_form_email_hit;
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
+    final register_toc = S.of(context).register_toc;
     return [
       Center(
         child: TextFormField(
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
-            fillColor: Colors.white,
+            hintStyle: const TextStyle(
+              color: Colors.white24,
+            ),
+            labelStyle: const TextStyle(
+              color: Colors.white60,
+            ),
+            // fillColor: Colors.white,
             filled: true,
             suffixIcon: const Icon(
               Icons.email_rounded,
-              color: Colors.black12,
+              color: Colors.white60,
             ),
           ),
           validator: (value) => ValidationForms().validateEmail(context, value),
@@ -64,11 +73,17 @@ class _RegisterFormState extends State<RegisterForm> {
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            fillColor: Colors.white,
+            hintStyle: const TextStyle(
+              color: Colors.white24,
+            ),
+            labelStyle: const TextStyle(
+              color: Colors.white60,
+            ),
+            // fillColor: Colors.white,
             filled: true,
             suffixIcon: const Icon(
               Icons.lock,
-              color: Colors.black12,
+              color: Colors.white60,
             ),
           ),
           // ignore: missing_return
@@ -76,23 +91,37 @@ class _RegisterFormState extends State<RegisterForm> {
               ValidationForms().validatePassword(context, value),
         ),
       ),
+      Row(
+        children: [
+          Checkbox(
+            value: true,
+            onChanged: (value) {
+              setState(() {});
+            },
+          ),
+          TextButton(
+            onPressed: launchTOCUrl,
+            child: Text(register_toc),
+          ),
+        ],
+      ),
       buildButtons(context),
     ];
   }
 
+  void launchTOCUrl() async {
+    if (await canLaunch(ApplicationConfig.toc_url)) {
+      await launch(ApplicationConfig.toc_url);
+      return;
+    }
+    throw 'Could not launch ${ApplicationConfig.toc_url}';
+  }
+
   Widget buildButtons(BuildContext context) {
-    final submit_register = S
-        .of(context)
-        .register_new_user;
-    final divider_or = S
-        .of(context)
-        .register_button_or_dividers;
-    final register_signup_google = S
-        .of(context)
-        .register_signup_google;
-    final register_signup_facebook = S
-        .of(context)
-        .register_signup_facebook;
+    final submit_register = S.of(context).register_new_user;
+    final divider_or = S.of(context).register_button_or_dividers;
+    final register_signup_google = S.of(context).register_signup_google;
+    final register_signup_facebook = S.of(context).register_signup_facebook;
     return Column(
       children: [
         Container(
@@ -131,6 +160,15 @@ class _RegisterFormState extends State<RegisterForm> {
           child: SignInButton(
             Buttons.Google,
             text: register_signup_google,
+            onPressed: () {},
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+          width: double.infinity,
+          child: SignInButton(
+            Buttons.Facebook,
+            text: register_signup_facebook,
             onPressed: () {},
           ),
         ),

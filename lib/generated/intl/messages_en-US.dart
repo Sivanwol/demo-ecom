@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "register_new_user" : MessageLookupByLibrary.simpleMessage("Register User"),
     "register_signup_facebook" : MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
     "register_signup_google" : MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+    "register_toc" : MessageLookupByLibrary.simpleMessage("I am agree with term of conditions"),
     "register_topbar_title" : MessageLookupByLibrary.simpleMessage("Back to login"),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),

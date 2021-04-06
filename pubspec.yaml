@@ -57,6 +57,7 @@ dependencies:
   equatable: ^2.0.0
   meta: ^1.3.0
   shared_preferences: ^2.0.5
+  url_launcher: ^6.0.3
 #  async: ^2.5.0
 # override requirement that conflict will rise if removed
 dependency_overrides:

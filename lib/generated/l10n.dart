@@ -185,6 +185,16 @@ class S {
     );
   }
 
+  /// `I am agree with term of conditions`
+  String get register_toc {
+    return Intl.message(
+      'I am agree with term of conditions',
+      name: 'register_toc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Email`
   String get validation_form_email_field_empty {
     return Intl.message(
