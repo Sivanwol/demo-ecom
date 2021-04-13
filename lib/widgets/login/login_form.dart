@@ -50,7 +50,8 @@ class _LoginFormState extends State<LoginForm> {
               color: Colors.black12,
             ),
           ),
-          validator: (value) => ValidationForms().validateEmail(context,value),
+          validator: (value) =>
+              ValidationForms().validateEmail(context, value!),
         ),
       ),
       const SizedBox(
@@ -74,7 +75,8 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           // ignore: missing_return
-          validator: (value) => ValidationForms().validatePassword(context,value),
+          validator: (value) =>
+              ValidationForms().validatePassword(context, value!),
         ),
       ),
       Container(

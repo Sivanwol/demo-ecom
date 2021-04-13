@@ -44,6 +44,7 @@ resources/
 *.inject.summary
 *.inject.dart
 
+*.g.dart
 lib/main.config.dart
 .env
 lib/common/config/application_config.dart

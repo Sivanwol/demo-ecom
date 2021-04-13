@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 splashTitle,
                 style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.headline1.fontSize,
+                  fontSize: Theme.of(context).textTheme.headline1!.fontSize,
                 ),
               ),
             ),
