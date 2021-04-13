@@ -5,6 +5,7 @@ import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RegisterForm extends StatefulWidget {
