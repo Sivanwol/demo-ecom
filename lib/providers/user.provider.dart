@@ -1,5 +1,4 @@
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
-import 'package:demo_ecom/models/app_user.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +43,7 @@ class UserProvider extends ChangeNotifier {
         throw RegisterUserException('user exisred', userData, e.code);
       }
     } catch (e) {
-      throw RegisterUserException('unknown error', userData, e.code);
+      throw RegisterUserException('unknown error', userData, e.toString());
     }
     return false;
   }
