@@ -1,12 +1,14 @@
-import 'dart:async';
-
 import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
+import 'package:demo_ecom/common/utils/logger_service.dart';
+import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class RegisterForm extends StatefulWidget {
   RegisterForm({Key key}) : super(key: key);
@@ -16,14 +18,25 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    Loader.hide();
+    super.dispose();
+  }
+
   void onRegister(BuildContext context) {
+    LoggerService().info('Register User');
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Yaya We Login'),
       backgroundColor: Colors.black26,
       duration: Duration(milliseconds: 400),
     ));
-    var duration = const Duration(milliseconds: 2000);
-    Timer(duration, () => redirect(context));
+    Loader.show(context, progressIndicator: const LinearProgressIndicator());
+    final userProvider = Provider.of<UserProvider>(context);
+    NewUser userData = NewUser(fullName:)
+    userProvider.registerUser(userData)
   }
 
   redirect(BuildContext context) async {
@@ -33,22 +46,62 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   List<Widget> getForm(BuildContext context) {
-    final input_email = S.of(context).login_form_email;
-    final input_email_hit = S.of(context).login_form_email_hit;
-    final input_password = S.of(context).login_form_password;
-    final input_password_hit = S.of(context).login_form_password_hit;
-    final register_toc = S.of(context).register_toc;
+    final input_email = S
+        .of(context)
+        .login_form_email;
+    final input_email_hit = S
+        .of(context)
+        .login_form_email_hit;
+    final input_password = S
+        .of(context)
+        .login_form_password;
+    final input_password_hit = S
+        .of(context)
+        .login_form_password_hit;
+    final input_display_field = S
+        .of(context)
+        .register_display_field;
+    final input_display_field_hit = S
+        .of(context)
+        .register_display_field_hit;
+    final register_toc = S
+        .of(context)
+        .register_toc;
     return [
+      Center(
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelText: input_display_field,
+            hintText: input_display_field_hit,
+            hintStyle: const TextStyle(
+              color: Colors.white70,
+            ),
+            labelStyle: const TextStyle(
+              color: Colors.white,
+            ),
+            // fillColor: Colors.white,
+            filled: true,
+            suffixIcon: const Icon(
+              Icons.settings_display_rounded,
+              color: Colors.white60,
+            ),
+          ),
+          validator: (value) => ValidationForms().validateFieldInput(context, value),
+        ),
+      ),
+      const SizedBox(
+        height: 20.0,
+      ),
       Center(
         child: TextFormField(
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
             hintStyle: const TextStyle(
-              color: Colors.white24,
+              color: Colors.white70,
             ),
             labelStyle: const TextStyle(
-              color: Colors.white60,
+              color: Colors.white,
             ),
             // fillColor: Colors.white,
             filled: true,
@@ -74,10 +127,10 @@ class _RegisterFormState extends State<RegisterForm> {
             labelText: input_password,
             hintText: input_password_hit,
             hintStyle: const TextStyle(
-              color: Colors.white24,
+              color: Colors.white70,
             ),
             labelStyle: const TextStyle(
-              color: Colors.white60,
+              color: Colors.white,
             ),
             // fillColor: Colors.white,
             filled: true,

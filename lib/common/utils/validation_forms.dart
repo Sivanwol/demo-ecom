@@ -11,10 +11,20 @@ class ValidationForms {
 
   ValidationForms._internal();
 
+  String validateFieldInput(BuildContext context, String value) {
+    final validation_form_field_not_empty_valid =
+        S.of(context).validation_form_field_not_empty_valid;
+    if (value.isEmpty) {
+      return validation_form_field_not_empty_valid;
+    }
+    return null;
+  }
 
-  String validateEmail(BuildContext context,String value) {
-    final validation_form_email_enter = S.of(context).validation_form_email_field_empty;
-    final validation_form_email_not_valid = S.of(context).validation_form_email_field_not_valid;
+  String validateEmail(BuildContext context, String value) {
+    final validation_form_email_enter =
+        S.of(context).validation_form_email_field_empty;
+    final validation_form_email_not_valid =
+        S.of(context).validation_form_email_field_not_valid;
     if (value.isEmpty) {
       return validation_form_email_enter;
     } else {

@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_slogen" : MessageLookupByLibrary.simpleMessage("Demo Ecom"),
     "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
     "register_button_or_dividers" : MessageLookupByLibrary.simpleMessage("OR"),
+    "register_display_field" : MessageLookupByLibrary.simpleMessage("Full Name"),
+    "register_display_field_hit" : MessageLookupByLibrary.simpleMessage("Enter Full Name"),
     "register_new_user" : MessageLookupByLibrary.simpleMessage("Register User"),
     "register_signup_facebook" : MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
     "register_signup_google" : MessageLookupByLibrary.simpleMessage("Sign up with Google"),
@@ -39,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "title" : MessageLookupByLibrary.simpleMessage("Testing"),
     "validation_form_email_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
     "validation_form_email_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_field_not_empty_valid" : MessageLookupByLibrary.simpleMessage("Please Valid Name"),
     "validation_form_password_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Password"),
     "validation_form_password_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Valid Password")
   };

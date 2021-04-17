@@ -155,6 +155,26 @@ class S {
     );
   }
 
+  /// `Full Name`
+  String get register_display_field {
+    return Intl.message(
+      'Full Name',
+      name: 'register_display_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Full Name`
+  String get register_display_field_hit {
+    return Intl.message(
+      'Enter Full Name',
+      name: 'register_display_field_hit',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `OR`
   String get register_button_or_dividers {
     return Intl.message(
@@ -210,6 +230,16 @@ class S {
     return Intl.message(
       'Please Enter Email',
       name: 'validation_form_email_field_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Valid Name`
+  String get validation_form_field_not_empty_valid {
+    return Intl.message(
+      'Please Valid Name',
+      name: 'validation_form_field_not_empty_valid',
       desc: '',
       args: [],
     );
