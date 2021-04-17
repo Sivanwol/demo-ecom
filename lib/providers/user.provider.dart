@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
-  User? _user = null;
+  User _user = null;
   bool _logged = false;
 
   bool get logged {
@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<String> getToken() async {
-    return await _user!.getIdToken();
+    return await _user.getIdToken();
   }
 
   Future<bool> registerUser(NewUser userData) async {
@@ -25,15 +25,15 @@ class UserProvider extends ChangeNotifier {
         password: userData.password,
       );
       assert(userCredential.user != null);
-      assert(await userCredential.user!.getIdToken() == '');
-      assert(userCredential.user!.uid != '');
-      await userCredential.user!.updateProfile(displayName: userData.fullName);
+      assert(await userCredential.user.getIdToken() == '');
+      assert(userCredential.user.uid != '');
+      await userCredential.user.updateProfile(displayName: userData.fullName);
       this._user = userCredential.user;
       var appUser = AppUser(
-        userCredential.user!.uid,
+        userCredential.user.uid,
         userData.fullName,
         userData.email,
-        await userCredential.user!.getIdToken(),
+        await userCredential.user.getIdToken(),
       );
       await loggedUser(appUser);
       return true;
@@ -52,7 +52,7 @@ class UserProvider extends ChangeNotifier {
   Future<void> loggedUser(AppUser user) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('UID', user.uid);
-    prefs.setString('email', user.email!);
+    prefs.setString('email', user.email);
     _logged = true;
     notifyListeners();
   }

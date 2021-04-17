@@ -57,8 +57,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.white60,
             ),
           ),
-          validator: (value) =>
-              ValidationForms().validateEmail(context, value!),
+          validator: (value) => ValidationForms().validateEmail(context, value),
         ),
       ),
       const SizedBox(
@@ -89,7 +88,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           // ignore: missing_return
           validator: (value) =>
-              ValidationForms().validatePassword(context, value!),
+              ValidationForms().validatePassword(context, value),
         ),
       ),
       Row(
