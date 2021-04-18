@@ -1,6 +1,7 @@
 import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
+import 'package:demo_ecom/models/new_user.dart';
 import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  final myController = TextEditingController();
+  String fullName;
+  String email;
+  String password;
 
   @override
   void dispose() {
@@ -34,9 +37,9 @@ class _RegisterFormState extends State<RegisterForm> {
       duration: Duration(milliseconds: 400),
     ));
     Loader.show(context, progressIndicator: const LinearProgressIndicator());
-    final userProvider = Provider.of<UserProvider>(context);
-    NewUser userData = NewUser(fullName:)
-    userProvider.registerUser(userData)
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    NewUser userData = NewUser(this.fullName, this.email, this.password);
+    userProvider.registerUser(userData);
   }
 
   redirect(BuildContext context) async {
@@ -46,30 +49,17 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   List<Widget> getForm(BuildContext context) {
-    final input_email = S
-        .of(context)
-        .login_form_email;
-    final input_email_hit = S
-        .of(context)
-        .login_form_email_hit;
-    final input_password = S
-        .of(context)
-        .login_form_password;
-    final input_password_hit = S
-        .of(context)
-        .login_form_password_hit;
-    final input_display_field = S
-        .of(context)
-        .register_display_field;
-    final input_display_field_hit = S
-        .of(context)
-        .register_display_field_hit;
-    final register_toc = S
-        .of(context)
-        .register_toc;
+    final input_email = S.of(context).login_form_email;
+    final input_email_hit = S.of(context).login_form_email_hit;
+    final input_password = S.of(context).login_form_password;
+    final input_password_hit = S.of(context).login_form_password_hit;
+    final input_display_field = S.of(context).register_display_field;
+    final input_display_field_hit = S.of(context).register_display_field_hit;
+    final register_toc = S.of(context).register_toc;
     return [
       Center(
         child: TextFormField(
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_display_field,
             hintText: input_display_field_hit,
@@ -86,7 +76,8 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.white60,
             ),
           ),
-          validator: (value) => ValidationForms().validateFieldInput(context, value),
+          validator: (value) =>
+              ValidationForms().validateFieldInput(context, value),
         ),
       ),
       const SizedBox(
@@ -94,6 +85,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       Center(
         child: TextFormField(
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
@@ -123,6 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
           enableSuggestions: false,
           autocorrect: false,
           obscuringCharacter: '*',
+          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,

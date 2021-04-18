@@ -20,7 +20,7 @@ dependencies:
   # Logging
   logger: ^1.0.0
   # Json
-  json_annotation: ^4.0.0
+  json_annotation: 3.1.1
 
   # firebase
   firebase_core: ^1.0.2
@@ -62,6 +62,7 @@ dependencies:
 #  async: ^2.5.0
 # override requirement that conflict will rise if removed
 dependency_overrides:
+  analyzer: ^1.4.0
   dart_style: ^2.0.0
   yaml: ^3.1.0
   args: ^2.0.0
@@ -69,14 +70,14 @@ dependency_overrides:
   crypto: ^3.0.0
 dev_dependencies:
   # add build runner if not already added
-  build_runner: ^1.10.9
+  build_runner: ^1.10.0
   flutter_test:
     sdk: flutter
   # Linting
   lint: ^1.5.3
 
   # Json
-  json_serializable: ^4.0.0
+  json_serializable: 3.5.1
 
   # misc tools
   mockito: ^5.0.2
