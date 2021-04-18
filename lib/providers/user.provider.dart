@@ -24,8 +24,9 @@ class UserProvider extends ChangeNotifier {
         email: userData.email,
         password: userData.password,
       );
+      final tokenId = await userCredential.user.getIdToken();
       assert(userCredential.user != null);
-      assert(await userCredential.user.getIdToken() == '');
+      assert(tokenId != '');
       assert(userCredential.user.uid != '');
       await userCredential.user.updateProfile(displayName: userData.fullName);
       this._user = userCredential.user;
@@ -33,7 +34,7 @@ class UserProvider extends ChangeNotifier {
         userCredential.user.uid,
         userData.fullName,
         userData.email,
-        await userCredential.user.getIdToken(),
+        tokenId,
       );
       await loggedUser(appUser);
       return true;
