@@ -245,6 +245,26 @@ class S {
     );
   }
 
+  /// `Input Name Require Min chars`
+  String get validation_form_field_not_min_chart_valid {
+    return Intl.message(
+      'Input Name Require Min chars',
+      name: 'validation_form_field_not_min_chart_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Name Require Max chars`
+  String get validation_form_field_not_max_chart_valid {
+    return Intl.message(
+      'Input Name Require Max chars',
+      name: 'validation_form_field_not_max_chart_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Password`
   String get validation_form_password_field_empty {
     return Intl.message(

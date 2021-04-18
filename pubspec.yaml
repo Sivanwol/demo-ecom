@@ -75,7 +75,6 @@ dev_dependencies:
     sdk: flutter
   # Linting
   lint: ^1.5.3
-
   # Json
   json_serializable: 3.5.1
 

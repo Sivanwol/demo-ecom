@@ -22,6 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   String fullName;
   String email;
   String password;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -30,16 +31,26 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   void onRegister(BuildContext context) {
-    LoggerService().info('Register User');
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Yaya We Login'),
-      backgroundColor: Colors.black26,
-      duration: Duration(milliseconds: 400),
-    ));
-    Loader.show(context, progressIndicator: const LinearProgressIndicator());
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    NewUser userData = NewUser(this.fullName, this.email, this.password);
-    userProvider.registerUser(userData);
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      LoggerService().info('Register User');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Processing Data')));
+      Loader.show(context, progressIndicator: const LinearProgressIndicator());
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      NewUser userData = NewUser(this.fullName, this.email, this.password);
+      userProvider.registerUser(userData);
+    } else {
+      _formKey.currentState.reset();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          'Error in form filling',
+          style: TextStyle(color: Colors.redAccent),
+        ),
+        backgroundColor: Colors.black26,
+        duration: Duration(milliseconds: 4000),
+      ));
+    }
   }
 
   redirect(BuildContext context) async {
@@ -76,6 +87,9 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.white60,
             ),
           ),
+          onSaved: (String value) {
+            this.fullName = value;
+          },
           validator: (value) =>
               ValidationForms().validateFieldInput(context, value),
         ),
@@ -102,6 +116,9 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.white60,
             ),
           ),
+          onSaved: (String value) {
+            this.email = value;
+          },
           validator: (value) => ValidationForms().validateEmail(context, value),
         ),
       ),
@@ -132,7 +149,9 @@ class _RegisterFormState extends State<RegisterForm> {
               color: Colors.white60,
             ),
           ),
-          // ignore: missing_return
+          onSaved: (String value) {
+            this.password = value;
+          },
           validator: (value) =>
               ValidationForms().validatePassword(context, value),
         ),
@@ -224,9 +243,12 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
-      child: Center(
-        child: Column(
-          children: getForm(context),
+      child: Form(
+        key: _formKey,
+        child: Center(
+          child: Column(
+            children: getForm(context),
+          ),
         ),
       ),
     );
