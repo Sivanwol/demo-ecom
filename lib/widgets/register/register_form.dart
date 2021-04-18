@@ -41,7 +41,6 @@ class _RegisterFormState extends State<RegisterForm> {
       NewUser userData = NewUser(this.fullName, this.email, this.password);
       userProvider.registerUser(userData);
     } else {
-      _formKey.currentState.reset();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           'Error in form filling',

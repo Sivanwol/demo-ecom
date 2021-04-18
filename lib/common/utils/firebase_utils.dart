@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<FirebaseApp> setupFirebase() async {
+  var app = await Firebase.initializeApp();
   if (ApplicationConfig.debug_mode && ApplicationConfig.firebase_emulator) {
     FirebaseAuth.instance
         .useEmulator('${ApplicationConfig.firebase_address}:9099');
@@ -13,5 +14,5 @@ Future<FirebaseApp> setupFirebase() async {
     // );
   }
 
-  return Firebase.initializeApp();
+  return app;
 }
