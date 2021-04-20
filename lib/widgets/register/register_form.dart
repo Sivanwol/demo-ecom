@@ -30,7 +30,10 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void onRegister(BuildContext context) {
+  void onRegister(BuildContext context) async {
+    final error_invalid_form_fields = S.of(context).error_invalid_form_fields;
+    final error_service_not_resonse_or_faild =
+        S.of(context).error_service_not_resonse_or_faild;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       LoggerService().info('Register User');
@@ -38,12 +41,25 @@ class _RegisterFormState extends State<RegisterForm> {
           .showSnackBar(SnackBar(content: Text('Processing Data')));
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
-      NewUser userData = NewUser(this.fullName, this.email, this.password);
-      userProvider.registerUser(userData);
+      var userData = NewUser(this.fullName, this.email, this.password);
+      var statusRequest = await userProvider.registerUser(userData);
+      Loader.hide();
+      if (statusRequest) {
+        Navigator.of(context).pushReplacementNamed(Routes.home);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            error_service_not_resonse_or_faild,
+            style: TextStyle(color: Colors.redAccent),
+          ),
+          backgroundColor: Colors.black26,
+          duration: Duration(milliseconds: 4000),
+        ));
+      }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Error in form filling',
+          error_invalid_form_fields,
           style: TextStyle(color: Colors.redAccent),
         ),
         backgroundColor: Colors.black26,

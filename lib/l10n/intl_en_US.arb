@@ -25,5 +25,7 @@
   "validation_form_field_not_min_chart_valid": "Input Name Require Min chars",
   "validation_form_field_not_max_chart_valid": "Input Name Require Max chars",
   "validation_form_password_field_empty": "Please Enter Password",
-  "validation_form_password_field_not_valid": "Please Enter Valid Password"
+  "validation_form_password_field_not_valid": "Please Enter Valid Password",
+  "error_invalid_form_fields": "Form Not Fill Correctly",
+  "error_service_not_resonse_or_faild": "Service Not Response or Have an Issue"
 }

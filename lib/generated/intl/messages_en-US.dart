@@ -21,6 +21,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "error_invalid_form_fields" : MessageLookupByLibrary.simpleMessage("Form Not Fill Correctly"),
+    "error_service_not_resonse_or_faild" : MessageLookupByLibrary.simpleMessage("Service Not Response or Have an Issue"),
     "login_form_email" : MessageLookupByLibrary.simpleMessage("Email"),
     "login_form_email_hit" : MessageLookupByLibrary.simpleMessage("Enter an Email"),
     "login_form_password" : MessageLookupByLibrary.simpleMessage("Password"),

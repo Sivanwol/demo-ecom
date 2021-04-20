@@ -284,6 +284,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Form Not Fill Correctly`
+  String get error_invalid_form_fields {
+    return Intl.message(
+      'Form Not Fill Correctly',
+      name: 'error_invalid_form_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Not Response or Have an Issue`
+  String get error_service_not_resonse_or_faild {
+    return Intl.message(
+      'Service Not Response or Have an Issue',
+      name: 'error_service_not_resonse_or_faild',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
