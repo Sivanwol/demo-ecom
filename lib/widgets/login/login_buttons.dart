@@ -22,46 +22,57 @@ class _LoginButtonsState extends State<LoginButtons> {
   @override
   Widget build(BuildContext context) {
     final register_new_user = S.of(context).login_form_register;
+    final divider_or = S.of(context).register_button_or_dividers;
+    final register_signup_google = S.of(context).register_signup_google;
+    final register_signup_facebook = S.of(context).register_signup_facebook;
     return Column(
       children: <Widget>[
         Container(
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
-          child: SignInButton(
-            Buttons.Facebook,
-            onPressed: () {
-              _showButtonPressDialog(context, 'Facebook');
+          child: ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
+              primary: const Color.fromRGBO(47, 54, 65, 1.0),
+            ),
+            onPressed: () async {
+              Navigator.of(context).pushReplacementNamed(Routes.register);
             },
+            label: Text(register_new_user),
+            icon: const Icon(Icons.email_rounded),
           ),
+        ),
+        Row(
+          children: [
+            const Expanded(
+              child: Divider(),
+            ),
+            Text(divider_or),
+            const Expanded(
+              child: Divider(),
+            ),
+          ],
         ),
         Container(
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
           child: SignInButton(
             Buttons.Google,
-            onPressed: () {
-              _showButtonPressDialog(context, 'Google');
-            },
+            text: register_signup_google,
+            onPressed: () {},
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
+          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
-          child: OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              primary: Colors.blueAccent,
-              backgroundColor: Colors.black38.withAlpha(70),
-              padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-            ),
-            onPressed: () async {
-              Navigator.of(context).pushReplacementNamed(Routes.register);
-            },
-            child: Text(
-              register_new_user,
-              style: const TextStyle(color: Colors.white, fontSize: 20),
-            ),
+          child: SignInButton(
+            Buttons.Facebook,
+            text: register_signup_facebook,
+            onPressed: () {},
           ),
         ),
       ],

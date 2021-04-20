@@ -28,5 +28,7 @@
   "validation_form_password_field_empty": "Please Enter Password",
   "validation_form_password_field_not_valid": "Please Enter Valid Password",
   "error_invalid_form_fields": "Form Not Fill Correctly",
+  "error_invalid_form_user_email_existed": "Email existed on our system",
+  "error_invalid_form_user_not_email_existed": "Email not existed on our system",
   "error_service_not_resonse_or_faild": "Service Not Response or Have an Issue"
 }

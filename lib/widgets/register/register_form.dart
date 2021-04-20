@@ -1,6 +1,8 @@
 import 'package:demo_ecom/common/config/application_config.dart';
+import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
+import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
@@ -34,6 +36,10 @@ class _RegisterFormState extends State<RegisterForm> {
     final error_invalid_form_fields = S.of(context).error_invalid_form_fields;
     final error_service_not_resonse_or_faild =
         S.of(context).error_service_not_resonse_or_faild;
+    final error_invalid_form_user_email_existed =
+        S.of(context).error_invalid_form_user_email_existed;
+    final validation_form_password_field_not_valid =
+        S.of(context).validation_form_password_field_not_valid;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       LoggerService().info('Register User');
@@ -42,29 +48,26 @@ class _RegisterFormState extends State<RegisterForm> {
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       var userData = NewUser(this.fullName, this.email, this.password);
-      var statusRequest = await userProvider.registerUser(userData);
-      Loader.hide();
-      if (statusRequest) {
-        Navigator.of(context).pushReplacementNamed(Routes.home);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            error_service_not_resonse_or_faild,
-            style: TextStyle(color: Colors.redAccent),
-          ),
-          backgroundColor: Colors.black26,
-          duration: Duration(milliseconds: 4000),
-        ));
+      try {
+        await userProvider.registerUser(userData);
+        Loader.hide();
+        Navigator.of(context).pushReplacementNamed(Routes.login);
+      } on RegisterUserException catch (e) {
+        String message = error_service_not_resonse_or_faild;
+        switch (e.code) {
+          case 'weak-password':
+            message = validation_form_password_field_not_valid;
+            break;
+          case 'email-already-in-use':
+            message = error_invalid_form_user_email_existed;
+            break;
+        }
+
+        MiscService().displayErrorStackMessage(context, message);
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-          error_invalid_form_fields,
-          style: TextStyle(color: Colors.redAccent),
-        ),
-        backgroundColor: Colors.black26,
-        duration: Duration(milliseconds: 4000),
-      ));
+      MiscService()
+          .displayErrorStackMessage(context, error_invalid_form_fields);
     }
   }
 
@@ -197,9 +200,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   Widget buildButtons(BuildContext context) {
     final submit_register = S.of(context).register_new_user;
-    final divider_or = S.of(context).register_button_or_dividers;
-    final register_signup_google = S.of(context).register_signup_google;
-    final register_signup_facebook = S.of(context).register_signup_facebook;
     return Column(
       children: [
         Container(
@@ -219,35 +219,6 @@ class _RegisterFormState extends State<RegisterForm> {
             },
             label: Text(submit_register),
             icon: const Icon(Icons.email_rounded),
-          ),
-        ),
-        Row(
-          children: [
-            const Expanded(
-              child: Divider(),
-            ),
-            Text(divider_or),
-            const Expanded(
-              child: Divider(),
-            ),
-          ],
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-          width: double.infinity,
-          child: SignInButton(
-            Buttons.Google,
-            text: register_signup_google,
-            onPressed: () {},
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-          width: double.infinity,
-          child: SignInButton(
-            Buttons.Facebook,
-            text: register_signup_facebook,
-            onPressed: () {},
           ),
         ),
       ],

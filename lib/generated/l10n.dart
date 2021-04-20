@@ -295,6 +295,26 @@ class S {
     );
   }
 
+  /// `Email existed on our system`
+  String get error_invalid_form_user_email_existed {
+    return Intl.message(
+      'Email existed on our system',
+      name: 'error_invalid_form_user_email_existed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email not existed on our system`
+  String get error_invalid_form_user_not_email_existed {
+    return Intl.message(
+      'Email not existed on our system',
+      name: 'error_invalid_form_user_not_email_existed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Service Not Response or Have an Issue`
   String get error_service_not_resonse_or_faild {
     return Intl.message(

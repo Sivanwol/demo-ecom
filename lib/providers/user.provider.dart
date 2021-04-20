@@ -29,15 +29,6 @@ class UserProvider extends ChangeNotifier {
       assert(tokenId != '');
       assert(userCredential.user.uid != '');
       await userCredential.user.updateProfile(displayName: userData.fullName);
-      this._user = userCredential.user;
-      var appUser = AppUser(
-        userCredential.user.uid,
-        userData.fullName,
-        userData.email,
-        tokenId,
-      );
-      await loggedUser(appUser);
-      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw RegisterUserException('weak password roles', userData, e.code);
@@ -47,7 +38,6 @@ class UserProvider extends ChangeNotifier {
     } catch (e) {
       throw RegisterUserException('unknown error', userData, e.toString());
     }
-    return false;
   }
 
   Future<void> loggedUser(AppUser user) async {
