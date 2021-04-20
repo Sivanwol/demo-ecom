@@ -65,10 +65,10 @@ class S {
     );
   }
 
-  /// `Dome Ecom`
+  /// `Demo Ecom`
   String get login_slogen {
     return Intl.message(
-      'Dome Ecom',
+      'Demo Ecom',
       name: 'login_slogen',
       desc: '',
       args: [],
@@ -155,6 +155,66 @@ class S {
     );
   }
 
+  /// `Full Name`
+  String get register_display_field {
+    return Intl.message(
+      'Full Name',
+      name: 'register_display_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Full Name`
+  String get register_display_field_hit {
+    return Intl.message(
+      'Enter Full Name',
+      name: 'register_display_field_hit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OR`
+  String get register_button_or_dividers {
+    return Intl.message(
+      'OR',
+      name: 'register_button_or_dividers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with Google`
+  String get register_signup_google {
+    return Intl.message(
+      'Sign up with Google',
+      name: 'register_signup_google',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up with Facebook`
+  String get register_signup_facebook {
+    return Intl.message(
+      'Sign up with Facebook',
+      name: 'register_signup_facebook',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I am agree with term of conditions`
+  String get register_toc {
+    return Intl.message(
+      'I am agree with term of conditions',
+      name: 'register_toc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Email`
   String get validation_form_email_field_empty {
     return Intl.message(
@@ -175,6 +235,36 @@ class S {
     );
   }
 
+  /// `Please Valid Name`
+  String get validation_form_field_not_empty_valid {
+    return Intl.message(
+      'Please Valid Name',
+      name: 'validation_form_field_not_empty_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Name Require Min chars`
+  String get validation_form_field_not_min_chart_valid {
+    return Intl.message(
+      'Input Name Require Min chars',
+      name: 'validation_form_field_not_min_chart_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Name Require Max chars`
+  String get validation_form_field_not_max_chart_valid {
+    return Intl.message(
+      'Input Name Require Max chars',
+      name: 'validation_form_field_not_max_chart_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please Enter Password`
   String get validation_form_password_field_empty {
     return Intl.message(
@@ -190,6 +280,46 @@ class S {
     return Intl.message(
       'Please Enter Valid Password',
       name: 'validation_form_password_field_not_valid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Form Not Fill Correctly`
+  String get error_invalid_form_fields {
+    return Intl.message(
+      'Form Not Fill Correctly',
+      name: 'error_invalid_form_fields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email existed on our system`
+  String get error_invalid_form_user_email_existed {
+    return Intl.message(
+      'Email existed on our system',
+      name: 'error_invalid_form_user_email_existed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email not existed on our system`
+  String get error_invalid_form_user_not_email_existed {
+    return Intl.message(
+      'Email not existed on our system',
+      name: 'error_invalid_form_user_not_email_existed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Not Response or Have an Issue`
+  String get error_service_not_resonse_or_faild {
+    return Intl.message(
+      'Service Not Response or Have an Issue',
+      name: 'error_service_not_resonse_or_faild',
       desc: '',
       args: [],
     );

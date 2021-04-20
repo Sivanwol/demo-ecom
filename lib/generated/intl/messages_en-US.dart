@@ -21,6 +21,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "error_invalid_form_fields" : MessageLookupByLibrary.simpleMessage("Form Not Fill Correctly"),
+    "error_invalid_form_user_email_existed" : MessageLookupByLibrary.simpleMessage("Email existed on our system"),
+    "error_invalid_form_user_not_email_existed" : MessageLookupByLibrary.simpleMessage("Email not existed on our system"),
+    "error_service_not_resonse_or_faild" : MessageLookupByLibrary.simpleMessage("Service Not Response or Have an Issue"),
     "login_form_email" : MessageLookupByLibrary.simpleMessage("Email"),
     "login_form_email_hit" : MessageLookupByLibrary.simpleMessage("Enter an Email"),
     "login_form_password" : MessageLookupByLibrary.simpleMessage("Password"),
@@ -28,13 +32,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "login_form_register" : MessageLookupByLibrary.simpleMessage("Register New User"),
     "login_slogen" : MessageLookupByLibrary.simpleMessage("Demo Ecom"),
     "login_slogen2" : MessageLookupByLibrary.simpleMessage("What you wise it was we want ..."),
+    "register_button_or_dividers" : MessageLookupByLibrary.simpleMessage("OR"),
+    "register_display_field" : MessageLookupByLibrary.simpleMessage("Full Name"),
+    "register_display_field_hit" : MessageLookupByLibrary.simpleMessage("Enter Full Name"),
     "register_new_user" : MessageLookupByLibrary.simpleMessage("Register User"),
+    "register_signup_facebook" : MessageLookupByLibrary.simpleMessage("Sign up with Facebook"),
+    "register_signup_google" : MessageLookupByLibrary.simpleMessage("Sign up with Google"),
+    "register_toc" : MessageLookupByLibrary.simpleMessage("I am agree with term of conditions"),
     "register_topbar_title" : MessageLookupByLibrary.simpleMessage("Back to login"),
     "reset_locale" : MessageLookupByLibrary.simpleMessage("Reset Language"),
     "splashTitle" : MessageLookupByLibrary.simpleMessage("Splash Title"),
     "title" : MessageLookupByLibrary.simpleMessage("Testing"),
     "validation_form_email_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
     "validation_form_email_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Email"),
+    "validation_form_field_not_empty_valid" : MessageLookupByLibrary.simpleMessage("Please Valid Name"),
+    "validation_form_field_not_max_chart_valid" : MessageLookupByLibrary.simpleMessage("Input Name Require Max chars"),
+    "validation_form_field_not_min_chart_valid" : MessageLookupByLibrary.simpleMessage("Input Name Require Min chars"),
     "validation_form_password_field_empty" : MessageLookupByLibrary.simpleMessage("Please Enter Password"),
     "validation_form_password_field_not_valid" : MessageLookupByLibrary.simpleMessage("Please Enter Valid Password")
   };
