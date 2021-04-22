@@ -8,7 +8,6 @@ import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
@@ -44,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
       _formKey.currentState.save();
       LoggerService().info('Register User');
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Processing Data')));
+          .showSnackBar(const SnackBar(content: Text('Processing Data')));
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       var userData = NewUser(this.fullName, this.email, this.password);
@@ -72,8 +71,6 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   redirect(BuildContext context) async {
-    // final applicationProvider = Provider.of<ApplicationProvider>(context);
-    // applicationProvider.stopSplashScreen();
     Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
@@ -188,14 +185,6 @@ class _RegisterFormState extends State<RegisterForm> {
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
           child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              primary: const Color.fromRGBO(47, 54, 65, 1.0),
-            ),
             onPressed: () {
               onRegister(context);
             },

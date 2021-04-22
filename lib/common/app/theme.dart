@@ -35,6 +35,17 @@ ThemeData _buildBasicTheme() {
         color: Colors.white,
       ),
     ),
+    // input
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: const Color.fromRGBO(47, 54, 65, 1.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
+        ),
+      ),
+    ),
     //canvasColor: const Color(0xFF202124),
     //scaffoldBackgroundColor: const Color(0xFF202124),
     //backgroundColor: const Color(0xFF202124),

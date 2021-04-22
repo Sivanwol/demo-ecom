@@ -61,7 +61,7 @@ class ValidationForms {
     final validation_form_password_field_not_valid =
         S.of(context).validation_form_password_field_not_valid;
 
-    Pattern pattern =
+    var pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     final regex = RegExp(pattern);
     if (value.isEmpty) {
