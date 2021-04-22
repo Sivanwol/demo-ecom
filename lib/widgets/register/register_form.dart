@@ -85,15 +85,11 @@ class _RegisterFormState extends State<RegisterForm> {
     return [
       Center(
         child: TextFormField(
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_display_field,
             hintText: input_display_field_hit,
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.settings_display_rounded,
-              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {
@@ -108,15 +104,11 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       Center(
         child: TextFormField(
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.email_rounded,
-              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {
@@ -135,15 +127,11 @@ class _RegisterFormState extends State<RegisterForm> {
           enableSuggestions: false,
           autocorrect: false,
           obscuringCharacter: '*',
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.lock,
-              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {

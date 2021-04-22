@@ -31,14 +31,6 @@ class _LoginButtonsState extends State<LoginButtons> {
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
           child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              primary: const Color.fromRGBO(47, 54, 65, 1.0),
-            ),
             onPressed: () async {
               Navigator.of(context).pushReplacementNamed(Routes.register);
             },
