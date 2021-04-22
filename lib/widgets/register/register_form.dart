@@ -53,7 +53,7 @@ class _RegisterFormState extends State<RegisterForm> {
         Loader.hide();
         Navigator.of(context).pushReplacementNamed(Routes.login);
       } on RegisterUserException catch (e) {
-        String message = error_service_not_resonse_or_faild;
+        var message = error_service_not_resonse_or_faild;
         switch (e.code) {
           case 'weak-password':
             message = validation_form_password_field_not_valid;
@@ -92,12 +92,6 @@ class _RegisterFormState extends State<RegisterForm> {
           decoration: InputDecoration(
             labelText: input_display_field,
             hintText: input_display_field_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
             // fillColor: Colors.white,
             filled: true,
             suffixIcon: const Icon(
@@ -121,12 +115,6 @@ class _RegisterFormState extends State<RegisterForm> {
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
             // fillColor: Colors.white,
             filled: true,
             suffixIcon: const Icon(
@@ -154,12 +142,6 @@ class _RegisterFormState extends State<RegisterForm> {
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
             // fillColor: Colors.white,
             filled: true,
             suffixIcon: const Icon(

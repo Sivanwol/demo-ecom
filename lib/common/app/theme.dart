@@ -27,6 +27,14 @@ ThemeData _buildBasicTheme() {
     indicatorColor: Colors.white,
     toggleableActiveColor: primaryColor,
     accentColor: secondaryColor,
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(
+        color: Colors.white70,
+      ),
+      labelStyle: TextStyle(
+        color: Colors.white,
+      ),
+    ),
     //canvasColor: const Color(0xFF202124),
     //scaffoldBackgroundColor: const Color(0xFF202124),
     //backgroundColor: const Color(0xFF202124),
