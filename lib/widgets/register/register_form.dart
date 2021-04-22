@@ -90,6 +90,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: input_display_field_hit,
             suffixIcon: const Icon(
               Icons.settings_display_rounded,
+              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {
@@ -109,6 +110,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: input_email_hit,
             suffixIcon: const Icon(
               Icons.email_rounded,
+              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {
@@ -132,6 +134,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: input_password_hit,
             suffixIcon: const Icon(
               Icons.lock,
+              color: Colors.white60,
             ),
           ),
           onSaved: (String value) {

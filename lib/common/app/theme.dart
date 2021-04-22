@@ -12,7 +12,7 @@ TextTheme _buildTextTheme(TextTheme base) {
 
 ThemeData _buildBasicTheme() {
   final colorScheme = const ColorScheme.dark().copyWith(
-    primary: const Color(0xFF000000),
+    primary: const Color(0xFF82B1FF),
     secondary: const Color(0xFF82B1FF),
   );
   final base = ThemeData(
@@ -25,8 +25,8 @@ ThemeData _buildBasicTheme() {
     toggleableActiveColor: colorScheme.primary,
     accentColor: colorScheme.secondary,
     textTheme: const TextTheme(
-        //subtitle1: TextStyle(color: Colors.white),
-        ),
+      subtitle1: TextStyle(color: Colors.white),
+    ),
     iconTheme: const IconThemeData(color: Colors.white60),
     inputDecorationTheme: const InputDecorationTheme(
       hintStyle: TextStyle(
@@ -36,7 +36,16 @@ ThemeData _buildBasicTheme() {
         color: Colors.white,
       ),
       filled: true,
-      fillColor: Colors.white60,
+      // fillColor: Colors.white60,
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
       suffixStyle: TextStyle(
         color: Colors.white60,
       ),
