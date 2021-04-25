@@ -12,11 +12,19 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationContext extends StatefulWidget {
+  final String initialRoute;
+
+  ApplicationContext({this.initialRoute});
+
   @override
-  _ApplicationContextState createState() => _ApplicationContextState();
+  _ApplicationContextState createState() =>
+      _ApplicationContextState(initialRoute: initialRoute);
 }
 
 class _ApplicationContextState extends State<ApplicationContext> {
+  final String initialRoute;
+
+  _ApplicationContextState({this.initialRoute});
 
   @override
   void initState() {
@@ -29,16 +37,18 @@ class _ApplicationContextState extends State<ApplicationContext> {
       initData();
     });
   }
+
   Future<void> initData() async {
     // @todo To remove this code this is where loading for Ql And DIO code need be handle and preload status
     final ins = await RemoteConfigService.getInstance();
     final params =  { 's': ins.getShopifySecret, 't': ins.getShopifyToken };
     LoggerService().debug('params',params: params );
-
   }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // ignore: prefer_const_literals_to_create_immutables
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -47,6 +57,7 @@ class _ApplicationContextState extends State<ApplicationContext> {
       ],
       supportedLocales: S.delegate.supportedLocales,
       fallbackLocale: const Locale('en-US'),
+      debugShowCheckedModeBanner: ApplicationConfig.debug_flag_display,
       enableLog: true,
       title: ApplicationConfig.application_title,
       theme: basicTheme,
@@ -60,6 +71,6 @@ class _ApplicationContextState extends State<ApplicationContext> {
     if (applicationProvider.loadSplash) {
       return Routes.splash;
     }
-    return Routes.home;
+    return initialRoute;
   }
 }

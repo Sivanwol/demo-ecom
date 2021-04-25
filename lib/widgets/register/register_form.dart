@@ -51,6 +51,7 @@ class _RegisterFormState extends State<RegisterForm> {
         await userProvider.registerUser(userData);
         Loader.hide();
         Navigator.of(context).pushReplacementNamed(Routes.login);
+        return;
       } on RegisterUserException catch (e) {
         var message = error_service_not_resonse_or_faild;
         switch (e.code) {
@@ -61,7 +62,7 @@ class _RegisterFormState extends State<RegisterForm> {
             message = error_invalid_form_user_email_existed;
             break;
         }
-
+        Loader.hide();
         MiscService().displayErrorStackMessage(context, message);
       }
     } else {

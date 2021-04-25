@@ -29,5 +29,9 @@ main() async {
       );
     }).sendPort);
   }
-  runApp(Application());
+
+  final AuthService _auth =
+  final bool isLogged = await AuthService().isLogged();
+  String initialRoute = isLogged ? '/home' : '/',
+      runApp(Application(initialRoute: initialRoute));
 }

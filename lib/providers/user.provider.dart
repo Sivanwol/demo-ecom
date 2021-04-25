@@ -1,3 +1,4 @@
+import 'package:demo_ecom/exceptions/login_user_exception.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/app_user.dart';
 import 'package:demo_ecom/models/new_user.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User _user = null;
   bool _logged = false;
 
@@ -19,8 +21,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<bool> registerUser(NewUser userData) async {
     try {
-      var userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: userData.email,
         password: userData.password,
       );
@@ -29,6 +30,7 @@ class UserProvider extends ChangeNotifier {
       assert(tokenId != '');
       assert(userCredential.user.uid != '');
       await userCredential.user.updateProfile(displayName: userData.fullName);
+      await userCredential.user.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw RegisterUserException('weak password roles', userData, e.code);
@@ -37,6 +39,47 @@ class UserProvider extends ChangeNotifier {
       }
     } catch (e) {
       throw RegisterUserException('unknown error', userData, e.toString());
+    }
+  }
+
+  Future<User> get FirebaseUser async {
+    return FirebaseAuth.instance.currentUser;
+  }
+
+  Stream<User> get onAuthStateChanged =>
+      FirebaseAuth.instance.authStateChanges();
+
+  // GET UID
+  Future<String> getCurrentUID() async {
+    return (FirebaseAuth.instance.currentUser).uid;
+  }
+
+  Future<AppUser> loginUserViaEmail(String email, String password) async {
+    try {
+      var userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      final tokenId = await userCredential.user.getIdToken();
+      assert(userCredential.user != null);
+      assert(tokenId != '');
+      assert(userCredential.user.uid != '');
+      if (!userCredential.user.emailVerified) {
+        await userCredential.user.sendEmailVerification();
+        return null;
+      } else {
+        return AppUser(
+          userCredential.user.uid,
+          userCredential.user.displayName,
+          email,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw LoginUserException('User Not Found', email, e.code);
+      } else if (e.code == 'wrong-password') {
+        throw LoginUserException('User password not valid', email, e.code);
+      }
+    } catch (e) {
+      throw LoginUserException('unknown error', email, e.toString());
     }
   }
 

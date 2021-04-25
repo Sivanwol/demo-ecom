@@ -7,10 +7,11 @@ class AppUser {
   final String uid;
   final String fullName;
   final String email;
-  @JsonKey(includeIfNull: false)
-  String tokenID;
 
-  AppUser(this.uid, this.fullName, this.email, this.tokenID);
+  // @JsonKey(includeIfNull: false)
+  // String tokenID;
+
+  AppUser(this.uid, this.fullName, this.email);
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
