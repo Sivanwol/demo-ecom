@@ -12,8 +12,8 @@ class AuthService {
 
   Future<bool> isLogged() async {
     try {
-      assert(_firebaseAuth.currentUser != null);
       await _firebaseAuth.currentUser.reload();
+      assert(_firebaseAuth.currentUser != null);
       return true;
     } catch (e) {
       return false;

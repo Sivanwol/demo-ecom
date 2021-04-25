@@ -31,7 +31,7 @@ main() async {
     }).sendPort);
   }
 
-  final bool isLogged = await AuthService().isLogged();
-  String initialRoute = isLogged ? '/home' : '/';
-  runApp(Application(initialRoute: initialRoute));
+  await GetStorage.init();
+  Get.put<AuthController>(AuthController());
+  runApp(Application());
 }

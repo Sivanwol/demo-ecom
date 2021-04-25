@@ -6,19 +6,14 @@ import 'package:provider/provider.dart';
 import 'application_context.dart';
 
 class Application extends StatefulWidget {
-  final String initialRoute;
 
-  Application({this.initialRoute});
+  Application();
 
   @override
-  _ApplicationState createState() =>
-      _ApplicationState(initialRoute: initialRoute);
+  _ApplicationState createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  final String initialRoute;
-
-  _ApplicationState({this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +29,7 @@ class _ApplicationState extends State<Application> {
           create: (context) => HomeProvider(),
         ),
       ],
-      child: ApplicationContext(initialRoute: initialRoute),
+      child: ApplicationContext(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:demo_ecom/common/controller/auth_controller.dart';
 import 'package:demo_ecom/exceptions/login_user_exception.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/app_user.dart';
@@ -7,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
+  final AuthController authController = AuthController.to;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   User _user = null;
   bool _logged = false;
@@ -31,6 +33,10 @@ class UserProvider extends ChangeNotifier {
       assert(userCredential.user.uid != '');
       await userCredential.user.updateProfile(displayName: userData.fullName);
       await userCredential.user.sendEmailVerification();
+      var appUser = AppUser(
+          userCredential.user.uid, userData.fullName, userData.email, true);
+      authController.createUserFirestore(appUser, userCredential.user);
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw RegisterUserException('weak password roles', userData, e.code);
@@ -66,11 +72,14 @@ class UserProvider extends ChangeNotifier {
         await userCredential.user.sendEmailVerification();
         return null;
       } else {
-        return AppUser(
-          userCredential.user.uid,
-          userCredential.user.displayName,
-          email,
-        );
+        notifyListeners();
+        final appUser = await authController.getFirestoreUser();
+        if (appUser.isFirstTimeUser) {
+          final cloneAppUser = AppUser(appUser.uid, appUser.fullName,
+              appUser.email, !appUser.isFirstTimeUser);
+          authController.updateUserFirestore(cloneAppUser, userCredential.user);
+        }
+        return appUser;
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
