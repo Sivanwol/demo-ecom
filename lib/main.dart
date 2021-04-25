@@ -30,7 +30,6 @@ main() async {
     }).sendPort);
   }
 
-  final AuthService _auth =
   final bool isLogged = await AuthService().isLogged();
   String initialRoute = isLogged ? '/home' : '/',
       runApp(Application(initialRoute: initialRoute));
