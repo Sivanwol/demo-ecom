@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'common/config/application_config.dart';
 import 'common/utils/firebase_utils.dart';
+import 'common/utils/auth_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 main() async {
@@ -31,6 +32,6 @@ main() async {
   }
 
   final bool isLogged = await AuthService().isLogged();
-  String initialRoute = isLogged ? '/home' : '/',
-      runApp(Application(initialRoute: initialRoute));
+  String initialRoute = isLogged ? '/home' : '/';
+  runApp(Application(initialRoute: initialRoute));
 }
