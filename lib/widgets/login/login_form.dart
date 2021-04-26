@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
@@ -69,9 +70,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   redirect(BuildContext context) async {
-    // final applicationProvider = Provider.of<ApplicationProvider>(context);
-    // applicationProvider.stopSplashScreen();
-    Navigator.of(context).pushReplacementNamed(Routes.home);
+    Get.toNamed(Routes.home);
   }
 
   List<Widget> getForm(BuildContext context) {

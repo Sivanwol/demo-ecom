@@ -4,6 +4,7 @@ import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/app_user.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -59,6 +60,22 @@ class UserProvider extends ChangeNotifier {
   // GET UID
   Future<String> getCurrentUID() async {
     return (_firebaseAuth.currentUser).uid;
+  }
+
+  Future<AppUser> signInWithGoogle() async {
+    final googleUser = await GoogleSignIn().signIn();
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    var userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    final tokenId = await userCredential.user.getIdToken();
+    assert(userCredential.user != null);
+    assert(tokenId != '');
+    assert(userCredential.user.uid != '');
+    final appUser = await authController.getFirestoreUser();
   }
 
   Future<AppUser> loginUserViaEmail(String email, String password) async {

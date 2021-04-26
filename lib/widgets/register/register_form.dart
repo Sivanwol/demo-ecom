@@ -8,6 +8,7 @@ import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
@@ -50,7 +51,7 @@ class _RegisterFormState extends State<RegisterForm> {
       try {
         await userProvider.registerUser(userData);
         Loader.hide();
-        Navigator.of(context).pushReplacementNamed(Routes.login);
+        Get.toNamed(Routes.login);
         return;
       } on RegisterUserException catch (e) {
         var message = error_service_not_resonse_or_faild;
@@ -69,10 +70,6 @@ class _RegisterFormState extends State<RegisterForm> {
       MiscService()
           .displayErrorStackMessage(context, error_invalid_form_fields);
     }
-  }
-
-  redirect(BuildContext context) async {
-    Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
   List<Widget> getForm(BuildContext context) {

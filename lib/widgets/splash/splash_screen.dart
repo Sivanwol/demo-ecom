@@ -5,6 +5,7 @@ import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -53,9 +54,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   redirect(BuildContext context) async {
-    // final applicationProvider = Provider.of<ApplicationProvider>(context);
-    // applicationProvider.stopSplashScreen();
-    Navigator.of(context).pushReplacementNamed(Routes.login);
-
+    Get.toNamed(Routes.login);
   }
 }

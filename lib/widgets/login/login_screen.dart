@@ -14,8 +14,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _visible = false;
-
   @override
   void initState() {
     super.initState();
@@ -32,12 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _getContent(BuildContext context) {
-    final splogen_1 = S
-        .of(context)
-        .login_slogen;
-    final splogen_2 = S
-        .of(context)
-        .login_slogen2;
+    final splogen_1 = S.of(context).login_slogen;
+    final splogen_2 = S.of(context).login_slogen2;
     return ListView(
       shrinkWrap: true,
       padding: EdgeInsets.all(15.0),

@@ -2,6 +2,7 @@ import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
+import 'package:get/get.dart';
 
 class LoginButtons extends StatefulWidget {
   LoginButtons({Key key}) : super(key: key);
@@ -32,7 +33,7 @@ class _LoginButtonsState extends State<LoginButtons> {
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () async {
-              Navigator.of(context).pushReplacementNamed(Routes.register);
+              Get.toNamed(Routes.register);
             },
             label: Text(register_new_user),
             icon: const Icon(Icons.email_rounded),
