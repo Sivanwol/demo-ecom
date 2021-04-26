@@ -42,6 +42,7 @@ class _LoginFormState extends State<LoginForm> {
         if (appUser != null) {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Login successfully')));
+          Loader.hide();
           var duration = const Duration(milliseconds: 1000);
           return Timer(duration, () => redirect(context));
         }
