@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
