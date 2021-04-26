@@ -15,15 +15,14 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationContext extends StatefulWidget {
-
   ApplicationContext();
 
   @override
-  _ApplicationContextState createState() =>
-      _ApplicationContextState();
+  _ApplicationContextState createState() => _ApplicationContextState();
 }
 
 class _ApplicationContextState extends State<ApplicationContext> {
+  AppUser user;
 
   @override
   void initState() {
@@ -40,8 +39,10 @@ class _ApplicationContextState extends State<ApplicationContext> {
   Future<void> initData() async {
     // @todo To remove this code this is where loading for Ql And DIO code need be handle and preload status
     final ins = await RemoteConfigService.getInstance();
-    final params =  { 's': ins.getShopifySecret, 't': ins.getShopifyToken };
-    LoggerService().debug('params',params: params );
+    final controller = AuthController.to;
+    final params = {'s': ins.getShopifySecret, 't': ins.getShopifyToken};
+    LoggerService().debug('params', params: params);
+    user = await controller.getFirestoreUser();
   }
 
   @override
@@ -62,13 +63,13 @@ class _ApplicationContextState extends State<ApplicationContext> {
         enableLog: true,
         title: ApplicationConfig.application_title,
         theme: basicTheme,
-        routes: Routes.getRoutes(controller.firestoreUser.value),
-        initialRoute: getInitialRoute(context, controller.firestoreUser.value),
+        routes: Routes.getRoutes(user),
+        initialRoute: getInitialRoute(context),
       ),
     );
   }
 
-  String getInitialRoute(BuildContext context, AppUser user) {
+  String getInitialRoute(BuildContext context) {
     final applicationProvider = Provider.of<ApplicationProvider>(context);
     if (applicationProvider.loadSplash) {
       return Routes.splash;

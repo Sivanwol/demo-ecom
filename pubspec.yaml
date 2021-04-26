@@ -61,7 +61,6 @@ dependencies:
   url_launcher: ^6.0.3
   flutter_overlay_loader: ^0.1.1
   dart_extensions: ^2.0.4
-  get_storage: ^2.0.2
 #  async: ^2.5.0
 # override requirement that conflict will rise if removed
 dependency_overrides:

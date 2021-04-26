@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
@@ -35,15 +36,19 @@ class _LoginFormState extends State<LoginForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       LoggerService().info('Register User');
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Processing Data')));
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       try {
-        await userProvider.loginUserViaEmail(email, password);
-        Loader.hide();
-        Navigator.of(context).pushReplacementNamed(Routes.home);
-        return;
+        var appUser = await userProvider.loginUserViaEmail(email, password);
+        if (appUser != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Login successfully')));
+          var duration = const Duration(milliseconds: 1000);
+          return Timer(duration, () => redirect(context));
+        }
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+                'Failed Login User , User may need be validated or Contact Support')));
       } on LoginUserException catch (e) {
         var message = error_service_not_resonse_or_faild;
         switch (e.code) {
@@ -54,9 +59,9 @@ class _LoginFormState extends State<LoginForm> {
             message = validation_form_password_field_not_valid;
             break;
         }
-        Loader.hide();
         MiscService().displayErrorStackMessage(context, message);
       }
+      Loader.hide();
     } else {
       MiscService()
           .displayErrorStackMessage(context, error_invalid_form_fields);

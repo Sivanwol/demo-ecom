@@ -36,6 +36,8 @@ class UserProvider extends ChangeNotifier {
       var appUser = AppUser(
           userCredential.user.uid, userData.fullName, userData.email, true);
       authController.createUserFirestore(appUser, userCredential.user);
+      await _firebaseAuth
+          .signOut(); // we logout as user needed re login as there link email step for this
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -49,21 +51,20 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<User> get FirebaseUser async {
-    return FirebaseAuth.instance.currentUser;
+    return _firebaseAuth.currentUser;
   }
 
-  Stream<User> get onAuthStateChanged =>
-      FirebaseAuth.instance.authStateChanges();
+  Stream<User> get onAuthStateChanged => _firebaseAuth.authStateChanges();
 
   // GET UID
   Future<String> getCurrentUID() async {
-    return (FirebaseAuth.instance.currentUser).uid;
+    return (_firebaseAuth.currentUser).uid;
   }
 
   Future<AppUser> loginUserViaEmail(String email, String password) async {
     try {
-      var userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      var userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       final tokenId = await userCredential.user.getIdToken();
       assert(userCredential.user != null);
       assert(tokenId != '');

@@ -28,18 +28,21 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-  handleAuthChanged(_firebaseUser) async {
+  handleAuthChanged(User _firebaseUser) async {
     //get user data from firestore
     if (_firebaseUser?.uid != null) {
       firestoreUser.bindStream(streamFirestoreUser());
       await isAdmin();
     }
 
-    if (_firebaseUser == null) {
-      Get.offAll(const LoginScreen());
-    } else {
-      Get.offAll(HomeScreen());
+    if (_firebaseUser != null) {
+      if (_firebaseUser.emailVerified) {
+        Get.offAll(HomeScreen());
+        return;
+      }
     }
+
+    Get.offAll(const LoginScreen());
   }
 
   // Firebase user one-time fetch
@@ -50,30 +53,37 @@ class AuthController extends GetxController {
 
   Stream<AppUser> streamFirestoreUser() {
     print('streamFirestoreUser()');
+    print(firebaseUser.value);
     assert(firebaseUser.value != null);
     return _db
         .doc('/users/${firebaseUser.value.uid}')
         .snapshots()
-        .map((snapshot) => AppUser.fromJson(snapshot.data()));
+        .map((snapshot) {
+      print(snapshot.data());
+      return AppUser.fromJson(snapshot.data());
+    });
   }
 
   //get the firestore user from the firestore collection
   Future<AppUser> getFirestoreUser() {
     assert(firebaseUser.value != null);
-    return _db
-        .doc('/users/${firebaseUser.value.uid}')
-        .get()
-        .then((documentSnapshot) => AppUser.fromJson(documentSnapshot.data()));
+    if (firebaseUser.value.emailVerified) {
+      return _db.doc('/users/${firebaseUser.value.uid}').get().then(
+          (documentSnapshot) => AppUser.fromJson(documentSnapshot.data()));
+    }
+    return null;
   }
 
   //updates the firestore user in users collection
   void updateUserFirestore(AppUser user, User _firebaseUser) {
+    assert(_firebaseUser != null);
     _db.doc('/users/${_firebaseUser.uid}').update(user.toJson());
     update();
   }
 
   //create the firestore user in users collection
   void createUserFirestore(AppUser user, User _firebaseUser) {
+    assert(_firebaseUser != null);
     _db.doc('/users/${_firebaseUser.uid}').set(user.toJson());
     update();
   }
