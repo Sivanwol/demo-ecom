@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'register_form.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key key}) : super(key: key);
+  final bool social;
+
+  const RegisterScreen({Key key, this.social = false}) : super(key: key);
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -45,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             image: AssetImage('assets/media/logo.jpg'),
             width: 150.0,
           ),
-          RegisterForm(),
+          RegisterForm(social: widget.social),
         ],
       ),
     );

@@ -13,16 +13,19 @@ class Routes {
   static const String home = '/home';
   static const String login = '/login';
   static const String register = '/register';
+  static const String registerSocial = '/register/scoial';
   static final routesAuth = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
     home: (BuildContext context) => HomeScreen(),
     login: (BuildContext context) => LoginScreen(),
     register: (BuildContext context) => RegisterScreen(),
+    registerSocial: (BuildContext context) => RegisterScreen(social: true),
   };
   static final routesNoAuth = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
     login: (BuildContext context) => LoginScreen(),
     register: (BuildContext context) => RegisterScreen(),
+    registerSocial: (BuildContext context) => RegisterScreen(social: true),
   };
 
   static Map<String, WidgetBuilder> getRoutes(AppUser user) {
