@@ -30,17 +30,17 @@ jobs:
         with:
           java-version: '12.0.2'
 
-      - name: Setup and Test Emulator
-        uses: w9jds/firebase-action@v1.3.1
-        env:
-          JAVA_HOME: ${{ env.JAVA_HOME }}
-#           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-#           GCLOUD_PROJECT: ${{ secrets.nextGCLOUD_PROJECT }}
-#           PROJECT_ID: ${{ secrets.nextFIREBASE_PROJECTID }}
-        with:
-          args: |
-            firbase setup:emulators:firestore
-            emulators:exec --only firestore \"npm run test --exit\"
+#       - name: Setup and Test Emulator
+#         uses: w9jds/firebase-action@v1.3.1
+#         env:
+#           JAVA_HOME: ${{ env.JAVA_HOME }}
+# #           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+# #           GCLOUD_PROJECT: ${{ secrets.nextGCLOUD_PROJECT }}
+# #           PROJECT_ID: ${{ secrets.nextFIREBASE_PROJECTID }}
+#         with:
+#           args: |
+#             firbase setup:emulators:firestore
+#             emulators:exec --only firestore \"npm run test --exit\"
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
