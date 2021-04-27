@@ -28,11 +28,11 @@ dependencies:
   firebase_auth: ^1.0.1
   firebase_crashlytics: ^1.0.0
   cloud_firestore: ^1.0.4
-#  firebase_analytics: ^7.1.1
+  #  firebase_analytics: ^7.1.1
 
   #auth social
-  google_sign_in: ^5.0.1
-  flutter_facebook_auth: ^3.3.2
+  google_sign_in: ^5.0.2
+  flutter_facebook_auth: ^3.3.3+1
   # localization
   intl: ^0.17.0
   # ui tools
@@ -41,7 +41,7 @@ dependencies:
   animations: ^2.0.0
   # pull_to_refresh: ^1.6.4
   get: ^4.1.4
-#  responsive_framework: ^0.1.0
+  #  responsive_framework: ^0.1.0
   # animated_text_kit: ^4.1.0
   # convex_bottom_bar: ^3.0.0
   introduction_screen: ^2.1.0

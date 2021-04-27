@@ -66,8 +66,7 @@ class AuthController extends GetxController {
 
   //get the firestore user from the firestore collection
   Future<AppUser> getFirestoreUser() {
-    assert(firebaseUser.value != null);
-    if (firebaseUser.value.emailVerified) {
+    if (firebaseUser.value != null && firebaseUser.value.emailVerified) {
       return _db.doc('/users/${firebaseUser.value.uid}').get().then(
           (documentSnapshot) => AppUser.fromJson(documentSnapshot.data()));
     }

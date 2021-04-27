@@ -2,6 +2,7 @@ import 'package:demo_ecom/common/utils/enums.dart';
 import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -28,7 +29,6 @@ class _LoginButtonsState extends State<LoginButtons> {
   void onSocialSign(SignSocialTypes socialType, BuildContext context) async {
     final error_service_not_resonse_or_faild =
         S.of(context).error_service_not_resonse_or_faild;
-    Loader.show(context, progressIndicator: const LinearProgressIndicator());
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       switch (socialType) {
@@ -43,11 +43,20 @@ class _LoginButtonsState extends State<LoginButtons> {
               context, 'Login Failed Un-support provider');
           break;
       }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        MiscService().displayErrorStackMessage(
+            context, 'User existed under diffrent provider');
+        // handle the error here
+      } else if (e.code == 'invalid-credential') {
+        MiscService().displayErrorStackMessage(
+            context, error_service_not_resonse_or_faild);
+      }
     } catch (e) {
+      // handle the error here
       MiscService().displayErrorStackMessage(
           context, error_service_not_resonse_or_faild);
     }
-    Loader.hide();
   }
 
   @override
@@ -86,7 +95,9 @@ class _LoginButtonsState extends State<LoginButtons> {
           child: SignInButton(
             Buttons.Google,
             text: register_signup_google,
-            onPressed: () {},
+            onPressed: () {
+              onSocialSign(SignSocialTypes.Google, context);
+            },
           ),
         ),
         Container(
