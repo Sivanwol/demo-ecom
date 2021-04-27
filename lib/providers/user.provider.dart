@@ -62,7 +62,7 @@ class UserProvider extends ChangeNotifier {
     return (_firebaseAuth.currentUser).uid;
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<AppUser> signInWithGoogle() async {
     final googleUser = await GoogleSignIn().signIn();
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
@@ -70,12 +70,22 @@ class UserProvider extends ChangeNotifier {
       idToken: googleAuth.idToken,
     );
     var userCredential =
-    await FirebaseAuth.instance.signInWithCredential(credential);
+        await FirebaseAuth.instance.signInWithCredential(credential);
     final tokenId = await userCredential.user.getIdToken();
     assert(userCredential.user != null);
     assert(tokenId != '');
     assert(userCredential.user.uid != '');
-    return userCredential;
+
+    var appUser = await authController.getFirestoreUser();
+    if (appUser != null && appUser.isFirstTimeUser) {
+      final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email,
+          !appUser.isFirstTimeUser);
+      authController.updateUserFirestore(cloneAppUser, userCredential.user);
+    } else {
+      appUser = AppUser(appUser.uid, appUser.fullName, appUser.email, true);
+      authController.createUserFirestore(appUser, userCredential.user);
+    }
+    return appUser;
   }
 
   Future<AppUser> loginUserViaEmail(String email, String password) async {

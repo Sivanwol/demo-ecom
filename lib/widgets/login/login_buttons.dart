@@ -1,8 +1,13 @@
+import 'package:demo_ecom/common/utils/enums.dart';
+import 'package:demo_ecom/common/utils/misc_service.dart';
+import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class LoginButtons extends StatefulWidget {
   LoginButtons({Key key}) : super(key: key);
@@ -18,6 +23,31 @@ class _LoginButtonsState extends State<LoginButtons> {
       backgroundColor: Colors.black26,
       duration: const Duration(milliseconds: 400),
     ));
+  }
+
+  void onSocialSign(SignSocialTypes socialType, BuildContext context) async {
+    final error_service_not_resonse_or_faild =
+        S.of(context).error_service_not_resonse_or_faild;
+    Loader.show(context, progressIndicator: const LinearProgressIndicator());
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      switch (socialType) {
+        case SignSocialTypes.Google:
+          await userProvider.signInWithGoogle();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Login successfully')));
+          Get.toNamed(Routes.home);
+          break;
+        default:
+          MiscService().displayErrorStackMessage(
+              context, 'Login Failed Un-support provider');
+          break;
+      }
+    } catch (e) {
+      MiscService().displayErrorStackMessage(
+          context, error_service_not_resonse_or_faild);
+    }
+    Loader.hide();
   }
 
   @override
