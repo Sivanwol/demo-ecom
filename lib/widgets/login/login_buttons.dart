@@ -4,7 +4,6 @@ import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:get/get.dart';
