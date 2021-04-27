@@ -1,7 +1,6 @@
-enum RemoteConfigKeys {
-  shopify_token,
-  shopify_secret
-}
+enum SignSocialTypes { Google, Facebook, Apple }
+
+enum RemoteConfigKeys { shopify_token, shopify_secret }
 
 extension ParseToString on RemoteConfigKeys {
   String toShortString() {

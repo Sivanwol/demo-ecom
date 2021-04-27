@@ -8,13 +8,15 @@ import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class RegisterForm extends StatefulWidget {
-  RegisterForm({Key key}) : super(key: key);
+  final bool social;
+
+  RegisterForm({Key key, this.social = false}) : super(key: key);
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -32,7 +34,24 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void onRegister(BuildContext context) async {
+  void onSocialRegister(BuildContext context) async {
+    final error_invalid_form_fields = S.of(context).error_invalid_form_fields;
+    final error_service_not_resonse_or_faild =
+        S.of(context).error_service_not_resonse_or_faild;
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      LoggerService().info('Register User Via Social');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Processing Data')));
+      Loader.show(context, progressIndicator: const LinearProgressIndicator());
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+    } else {
+      MiscService()
+          .displayErrorStackMessage(context, error_invalid_form_fields);
+    }
+  }
+
+  void onEmailRegister(BuildContext context) async {
     final error_invalid_form_fields = S.of(context).error_invalid_form_fields;
     final error_service_not_resonse_or_faild =
         S.of(context).error_service_not_resonse_or_faild;
@@ -42,18 +61,19 @@ class _RegisterFormState extends State<RegisterForm> {
         S.of(context).validation_form_password_field_not_valid;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      LoggerService().info('Register User');
+      LoggerService().info('Register User Via email');
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Processing Data')));
+          .showSnackBar(const SnackBar(content: Text('Processing Data')));
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       var userData = NewUser(this.fullName, this.email, this.password);
       try {
         await userProvider.registerUser(userData);
         Loader.hide();
-        Navigator.of(context).pushReplacementNamed(Routes.login);
+        Get.toNamed(Routes.login);
+        return;
       } on RegisterUserException catch (e) {
-        String message = error_service_not_resonse_or_faild;
+        var message = error_service_not_resonse_or_faild;
         switch (e.code) {
           case 'weak-password':
             message = validation_form_password_field_not_valid;
@@ -62,7 +82,7 @@ class _RegisterFormState extends State<RegisterForm> {
             message = error_invalid_form_user_email_existed;
             break;
         }
-
+        Loader.hide();
         MiscService().displayErrorStackMessage(context, message);
       }
     } else {
@@ -71,13 +91,7 @@ class _RegisterFormState extends State<RegisterForm> {
     }
   }
 
-  redirect(BuildContext context) async {
-    // final applicationProvider = Provider.of<ApplicationProvider>(context);
-    // applicationProvider.stopSplashScreen();
-    Navigator.of(context).pushReplacementNamed(Routes.home);
-  }
-
-  List<Widget> getForm(BuildContext context) {
+  List<Widget> getEmailForm(BuildContext context) {
     final input_email = S.of(context).login_form_email;
     final input_email_hit = S.of(context).login_form_email_hit;
     final input_password = S.of(context).login_form_password;
@@ -88,18 +102,9 @@ class _RegisterFormState extends State<RegisterForm> {
     return [
       Center(
         child: TextFormField(
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_display_field,
             hintText: input_display_field_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.settings_display_rounded,
               color: Colors.white60,
@@ -117,18 +122,9 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       Center(
         child: TextFormField(
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.email_rounded,
               color: Colors.white60,
@@ -150,18 +146,9 @@ class _RegisterFormState extends State<RegisterForm> {
           enableSuggestions: false,
           autocorrect: false,
           obscuringCharacter: '*',
-          style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            hintStyle: const TextStyle(
-              color: Colors.white70,
-            ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
-            ),
-            // fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.lock,
               color: Colors.white60,
@@ -183,19 +170,65 @@ class _RegisterFormState extends State<RegisterForm> {
             },
           ),
           TextButton(
-            onPressed: () async {
-              if (await canLaunch(ApplicationConfig.toc_url)) {
-                await launch(ApplicationConfig.toc_url);
-                return;
-              }
-              throw 'Could not launch ${ApplicationConfig.toc_url}';
-            },
+            onPressed: () => _tocUrlLauncher(),
             child: Text(register_toc),
           ),
         ],
       ),
       buildButtons(context),
     ];
+  }
+
+  List<Widget> getSocialForm(BuildContext context) {
+    final input_display_field = S.of(context).register_display_field;
+    final input_display_field_hit = S.of(context).register_display_field_hit;
+    final register_toc = S.of(context).register_toc;
+    return [
+      Center(
+        child: TextFormField(
+          decoration: InputDecoration(
+            labelText: input_display_field,
+            hintText: input_display_field_hit,
+            suffixIcon: const Icon(
+              Icons.settings_display_rounded,
+              color: Colors.white60,
+            ),
+          ),
+          onSaved: (String value) {
+            this.fullName = value;
+          },
+          validator: (value) =>
+              ValidationForms().validateFieldInput(context, value),
+        ),
+      ),
+      Row(
+        children: [
+          Checkbox(
+            value: true,
+            onChanged: (value) {
+              setState(() {});
+            },
+          ),
+          TextButton(
+            onPressed: () => _tocUrlLauncher(),
+            child: Text(register_toc),
+          ),
+        ],
+      ),
+      buildButtons(context),
+    ];
+  }
+
+  _tocUrlLauncher() async {
+    if (await canLaunch(ApplicationConfig.toc_url)) {
+      await launch(ApplicationConfig.toc_url);
+      return;
+    }
+    throw 'Could not launch ${ApplicationConfig.toc_url}';
+  }
+
+  List<Widget> getForm(BuildContext context) {
+    return widget.social ? getSocialForm(context) : getEmailForm(context);
   }
 
   Widget buildButtons(BuildContext context) {
@@ -206,16 +239,12 @@ class _RegisterFormState extends State<RegisterForm> {
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
           child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              primary: const Color.fromRGBO(47, 54, 65, 1.0),
-            ),
             onPressed: () {
-              onRegister(context);
+              if (!widget.social) {
+                onEmailRegister(context);
+                return;
+              }
+              onSocialRegister(context);
             },
             label: Text(submit_register),
             icon: const Icon(Icons.email_rounded),

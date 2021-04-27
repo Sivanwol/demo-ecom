@@ -3,9 +3,10 @@ import 'dart:isolate';
 import 'package:demo_ecom/common/app/application.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-
+import 'package:demo_ecom/common/controller/auth_controller.dart';
 import 'common/config/application_config.dart';
 import 'common/utils/firebase_utils.dart';
+import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 main() async {
@@ -29,5 +30,8 @@ main() async {
       );
     }).sendPort);
   }
+
+  // await GetStorage.init('app_store');
+  Get.put<AuthController>(AuthController());
   runApp(Application());
 }

@@ -19,6 +19,10 @@ environment_config:
       dotenv: true
       default: true
       type: bool
+    debug_flag_display:
+      dotenv: true
+      default: false
+      type: bool
     backend_api:
       default: "http://10.0.0.31:5001"
       type: String

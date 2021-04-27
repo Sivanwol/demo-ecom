@@ -2,12 +2,13 @@ import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:demo_ecom/widgets/login/login_background.dart';
 import 'package:flutter/material.dart';
-import 'package:demo_ecom/generated/l10n.dart';
 
 import 'register_form.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key key}) : super(key: key);
+  final bool social;
+
+  const RegisterScreen({Key key, this.social = false}) : super(key: key);
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -46,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             image: AssetImage('assets/media/logo.jpg'),
             width: 150.0,
           ),
-          RegisterForm(),
+          RegisterForm(social: widget.social),
         ],
       ),
     );
@@ -54,7 +55,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bar_title = S.of(context).register_topbar_title;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,

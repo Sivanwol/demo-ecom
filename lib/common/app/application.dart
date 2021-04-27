@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import 'application_context.dart';
 
 class Application extends StatefulWidget {
+
+  Application();
+
   @override
   _ApplicationState createState() => _ApplicationState();
 }

@@ -1,4 +1,4 @@
-import 'package:demo_ecom/common/utils/base_exception.dart';
+import 'package:demo_ecom/exceptions/base_exception.dart';
 
 class RegisterUserException extends BaseException {
   dynamic User;

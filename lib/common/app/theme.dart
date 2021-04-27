@@ -11,22 +11,56 @@ TextTheme _buildTextTheme(TextTheme base) {
 }
 
 ThemeData _buildBasicTheme() {
-  const Color primaryColor = Colors.orange;
-  const Color secondaryColor = Colors.lightGreen;
-  final colorScheme = const ColorScheme.light().copyWith(
-    primary: primaryColor,
-    secondary: secondaryColor,
+  final colorScheme = const ColorScheme.dark().copyWith(
+    primary: const Color(0xFF82B1FF),
+    secondary: const Color(0xFF82B1FF),
   );
   final base = ThemeData(
 //    brightness: Brightness.light,
 //    accentColorBrightness: Brightness.light,
-    primaryColor: primaryColor,
-    //primaryColorDark: const Color(0xFF0050a0),
-    primaryColorLight: secondaryColor,
-    buttonColor: primaryColor,
+    primaryColor: colorScheme.primary,
+    primaryColorLight: colorScheme.secondary,
+    buttonColor: colorScheme.primary,
     indicatorColor: Colors.white,
-    toggleableActiveColor: primaryColor,
-    accentColor: secondaryColor,
+    toggleableActiveColor: colorScheme.primary,
+    accentColor: colorScheme.secondary,
+    textTheme: const TextTheme(
+      subtitle1: TextStyle(color: Colors.white),
+    ),
+    iconTheme: const IconThemeData(color: Colors.white60),
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle: TextStyle(
+        color: Colors.white70,
+      ),
+      labelStyle: TextStyle(
+        color: Colors.white,
+      ),
+      filled: true,
+      // fillColor: Colors.white60,
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white70),
+      ),
+      suffixStyle: TextStyle(
+        color: Colors.white60,
+      ),
+    ),
+    // input
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: const Color.fromRGBO(47, 54, 65, 1.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
+          ),
+        ),
+      ),
+    ),
     //canvasColor: const Color(0xFF202124),
     //scaffoldBackgroundColor: const Color(0xFF202124),
     //backgroundColor: const Color(0xFF202124),

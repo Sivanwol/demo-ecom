@@ -1,11 +1,17 @@
 import 'dart:async';
 
+import 'package:demo_ecom/common/utils/logger_service.dart';
+import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
+import 'package:demo_ecom/exceptions/login_user_exception.dart';
+import 'package:demo_ecom/providers/user.provider.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:demo_ecom/generated/l10n.dart';
-
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -15,21 +21,56 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  String password = '';
+  String email = '';
 
-  void onLogin(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Yaya We Login'),
-      backgroundColor: Colors.black26,
-      duration: Duration(milliseconds: 400),
-    ));
-    var duration = const Duration(milliseconds: 1000);
-    Timer(duration, () => redirect(context));
+  Future<void> onLogin(BuildContext context) async {
+    final error_invalid_form_fields = S.of(context).error_invalid_form_fields;
+    final error_service_not_resonse_or_faild =
+        S.of(context).error_service_not_resonse_or_faild;
+    final error_invalid_form_user_not_email_existed =
+        S.of(context).error_invalid_form_user_not_email_existed;
+    final validation_form_password_field_not_valid =
+        S.of(context).validation_form_password_field_not_valid;
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      LoggerService().info('Register User');
+      Loader.show(context, progressIndicator: const LinearProgressIndicator());
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      try {
+        var appUser = await userProvider.loginUserViaEmail(email, password);
+        if (appUser != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Login successfully')));
+          Loader.hide();
+          var duration = const Duration(milliseconds: 1000);
+          return Timer(duration, () => redirect(context));
+        }
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text(
+                'Failed Login User , User may need be validated or Contact Support')));
+      } on LoginUserException catch (e) {
+        var message = error_service_not_resonse_or_faild;
+        switch (e.code) {
+          case 'user-not-found':
+            message = error_invalid_form_user_not_email_existed;
+            break;
+          case 'wrong-password':
+            message = validation_form_password_field_not_valid;
+            break;
+        }
+        MiscService().displayErrorStackMessage(context, message);
+      }
+      Loader.hide();
+    } else {
+      MiscService()
+          .displayErrorStackMessage(context, error_invalid_form_fields);
+    }
   }
-  redirect(BuildContext context) async {
-    // final applicationProvider = Provider.of<ApplicationProvider>(context);
-    // applicationProvider.stopSplashScreen();
-    Navigator.of(context).pushReplacementNamed(Routes.home);
 
+  redirect(BuildContext context) async {
+    Get.toNamed(Routes.home);
   }
 
   List<Widget> getForm(BuildContext context) {
@@ -43,13 +84,14 @@ class _LoginFormState extends State<LoginForm> {
           decoration: InputDecoration(
             labelText: input_email,
             hintText: input_email_hit,
-            fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.email_rounded,
-              color: Colors.black12,
+              color: Colors.white60,
             ),
           ),
+          onSaved: (String value) {
+            email = value;
+          },
           validator: (value) => ValidationForms().validateEmail(context, value),
         ),
       ),
@@ -66,14 +108,14 @@ class _LoginFormState extends State<LoginForm> {
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            fillColor: Colors.white,
-            filled: true,
             suffixIcon: const Icon(
               Icons.lock,
-              color: Colors.black12,
+              color: Colors.white60,
             ),
           ),
-          // ignore: missing_return
+          onSaved: (String value) {
+            password = value;
+          },
           validator: (value) =>
               ValidationForms().validatePassword(context, value),
         ),
@@ -96,8 +138,11 @@ class _LoginFormState extends State<LoginForm> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
       child: Center(
-        child: Column(
-          children: getForm(context),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: getForm(context),
+          ),
         ),
       ),
     );
