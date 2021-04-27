@@ -124,6 +124,7 @@ class UserProvider extends ChangeNotifier {
     } catch (e) {
       throw LoginUserException('unknown error', email, e.toString());
     }
+    return null;
   }
 
   Future<void> loggedUser(AppUser user) async {
