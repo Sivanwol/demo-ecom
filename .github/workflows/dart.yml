@@ -14,11 +14,50 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setting-up Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '10'
+
+      - name: Installing npm dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false
+
+      - name: Checking-out
+        uses: actions/checkout@v2
+
+      - name: Setting-up JAVA
+        uses: actions/setup-java@v1.3.0
+        with: 
+          java-version: "12.x"
+
+      - name: Setup and Test Emulator
+        uses: w9jds/firebase-action@v1.3.1
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GCLOUD_PROJECT: ${{ secrets.nextGCLOUD_PROJECT }}
+          PROJECT_ID: ${{ secrets.nextFIREBASE_PROJECTID }}
+        with:
+          args: |
+            firbase setup:emulators:firestore
+            emulators:exec --only firestore \"npm run test --exit\"
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
       - run: flutter pub get
-      - run: flutter format --dry-run .
+      # Check for any formatting issues in the code.
+      - run: flutter format --dry-run --set-exit-if-changed .
+      - run: flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="bmi-calc-project"
+      - run: flutter packages pub run build_runner build
       - run: flutter analyze
       - run: flutter test
+      
+      # Build apk.
+      - run: flutter build apk
+
+      # Upload generated apk to the artifacts.
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
