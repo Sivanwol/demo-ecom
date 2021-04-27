@@ -46,7 +46,7 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       # Check for any formatting issues in the code.
-      - run: flutter format --dry-run --set-exit-if-changed .
+      - run: flutter format --dry-run .
       - run: flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="${{ secrets.nextFIREBASE_PROJECTID }}"
       - run: flutter packages pub run build_runner build
       - run: flutter analyze
