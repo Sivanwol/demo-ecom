@@ -60,7 +60,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   }
 
   Widget formButton(BuildContext context) {
-    final submit_register = S.of(context).register_new_user;
+    var forgetPasswordTxt = 'Send me Email'; // S.of(context).register_new_user;
     return Column(
       children: [
         Container(
@@ -70,7 +70,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             onPressed: () {
               onRequestForgetPassword(context);
             },
-            label: Text(submit_register),
+            label: Text(forgetPasswordTxt),
             icon: const Icon(Icons.email_rounded),
           ),
         ),
