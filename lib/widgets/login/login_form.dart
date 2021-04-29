@@ -108,9 +108,14 @@ class _LoginFormState extends State<LoginForm> {
           decoration: InputDecoration(
             labelText: input_password,
             hintText: input_password_hit,
-            suffixIcon: const Icon(
-              Icons.lock,
-              color: Colors.white60,
+            suffix: Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                GestureDetector(
+                  onTap: () => Get.toNamed(Routes.forgetPassword),
+                  child: const Text('Forgot?'),
+                ),
+              ],
             ),
           ),
           onSaved: (String value) {
