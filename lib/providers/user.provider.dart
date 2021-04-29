@@ -22,6 +22,10 @@ class UserProvider extends ChangeNotifier {
     return await _user.getIdToken();
   }
 
+  Future<void> forgetUserPassowrd(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
   Future<bool> registerUser(NewUser userData) async {
     try {
       var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(

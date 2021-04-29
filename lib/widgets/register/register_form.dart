@@ -62,14 +62,14 @@ class _RegisterFormState extends State<RegisterForm> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       LoggerService().info('Register User Via email');
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Processing Data')));
       Loader.show(context, progressIndicator: const LinearProgressIndicator());
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       var userData = NewUser(this.fullName, this.email, this.password);
       try {
         await userProvider.registerUser(userData);
         Loader.hide();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('User Register')));
         Get.toNamed(Routes.login);
         return;
       } on RegisterUserException catch (e) {

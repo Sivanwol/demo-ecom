@@ -2,6 +2,7 @@ import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/routes.dart';
 import 'package:demo_ecom/widgets/login/login_background.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'register_form.dart';
 
@@ -70,8 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             icon: const Icon(Icons.arrow_back),
             color: Colors.white54,
             //onPressed:() => Navigator.pop(context, false),
-            onPressed: () =>
-                {Navigator.of(context).pushReplacementNamed(Routes.login)},
+            onPressed: () => Get.toNamed(Routes.login),
           ),
         ),
         body: Center(
