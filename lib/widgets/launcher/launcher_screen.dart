@@ -77,18 +77,14 @@ class LauncherScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
-          title: const Text(
-            'Signin Via Email',
-            style: TextStyle(color: Colors.white54),
-          ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
           actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              color: Colors.white54,
+            TextButton.icon(
+              icon: const Icon(Icons.arrow_forward, color: Colors.white60),
               //onPressed:() => Navigator.pop(context, false),
               onPressed: () => Get.toNamed(Routes.login),
+              label: const Text('Signin Via Email'),
             ),
           ],
         ),

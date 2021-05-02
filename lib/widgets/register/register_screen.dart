@@ -57,9 +57,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
-          title: Text('Back to login', style: const TextStyle(
-            color: Colors.white54
-          ),),
+          title: Text(
+            'Back to login',
+            style: const TextStyle(color: Colors.white54),
+          ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
           leading: IconButton(
@@ -70,11 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
         body: Center(
-          child: Stack(
-            children: <Widget>[
-              _getContent(context),
-            ],
-          ),
+          child: _getContent(context),
         ),
       ),
     );

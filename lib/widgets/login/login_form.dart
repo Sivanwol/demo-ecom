@@ -79,7 +79,7 @@ class _LoginFormState extends State<LoginForm> {
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
     return [
-      Center(
+      Expanded(
         child: TextFormField(
           decoration: InputDecoration(
             labelText: input_email,
@@ -98,8 +98,7 @@ class _LoginFormState extends State<LoginForm> {
       const SizedBox(
         height: 20.0,
       ),
-      SizedBox(
-        width: double.infinity,
+      Expanded(
         child: Row(
           children: [
             TextFormField(
@@ -132,7 +131,6 @@ class _LoginFormState extends State<LoginForm> {
       ),
       Container(
         margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-        width: double.infinity,
         child: SignInButton(
           Buttons.Email,
           onPressed: () {
@@ -147,12 +145,10 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16, top: 20, left: 20, right: 20),
-      child: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: getForm(context),
-          ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: getForm(context),
         ),
       ),
     );

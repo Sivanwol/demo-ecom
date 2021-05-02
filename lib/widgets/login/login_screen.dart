@@ -29,34 +29,36 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _getContent(BuildContext context) {
     final splogen_1 = S.of(context).login_slogen;
     final splogen_2 = S.of(context).login_slogen2;
-    return ListView(
-      shrinkWrap: true,
-      padding: EdgeInsets.all(15.0),
-      children: <Widget>[
-        const SizedBox(
-          height: 40.0,
-        ),
-        const Image(
-          image: AssetImage('assets/media/logo.jpg'),
-          width: 150.0,
-        ),
-        Text(
-          splogen_1,
-          style: TextStyle(color: Colors.white, fontSize: 40),
-          textAlign: TextAlign.center,
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 40.0),
-          alignment: Alignment.center,
-          child: Text(
-            splogen_2,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20),
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(15.0),
+        children: <Widget>[
+          const SizedBox(
+            height: 40.0,
           ),
-        ),
-        LoginForm(),
-        LoginButtons()
-      ],
+          const Image(
+            image: AssetImage('assets/media/logo.jpg'),
+            width: 150.0,
+          ),
+          Text(
+            splogen_1,
+            style: TextStyle(color: Colors.white, fontSize: 40),
+            textAlign: TextAlign.center,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 40.0),
+            alignment: Alignment.center,
+            child: Text(
+              splogen_2,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+          LoginForm(),
+          LoginButtons()
+        ],
+      ),
     );
   }
 
@@ -82,11 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         body: Center(
-          child: Stack(
-            children: <Widget>[
-              _getContent(context),
-            ],
-          ),
+          child: _getContent(context),
         ),
       ),
     );
