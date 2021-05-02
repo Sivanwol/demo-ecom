@@ -100,29 +100,34 @@ class _LoginFormState extends State<LoginForm> {
       ),
       SizedBox(
         width: double.infinity,
-        child: TextFormField(
-          obscureText: true,
-          enableSuggestions: false,
-          autocorrect: false,
-          obscuringCharacter: '*',
-          decoration: InputDecoration(
-            labelText: input_password,
-            hintText: input_password_hit,
-            suffix: Row(
-              textDirection: TextDirection.rtl,
-              children: [
-                GestureDetector(
-                  onTap: () => Get.toNamed(Routes.forgetPassword),
-                  child: const Text('Forgot?'),
-                ),
-              ],
+        child: Row(
+          children: [
+            TextFormField(
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
+              obscuringCharacter: '*',
+              decoration: InputDecoration(
+                labelText: input_password,
+                hintText: input_password_hit,
+              ),
+              onSaved: (String value) {
+                password = value;
+              },
+              validator: (value) =>
+                  ValidationForms().validatePassword(context, value),
             ),
-          ),
-          onSaved: (String value) {
-            password = value;
-          },
-          validator: (value) =>
-              ValidationForms().validatePassword(context, value),
+
+            ///
+            TextButton.icon(
+              icon: const Icon(
+                Icons.lock,
+                color: Colors.white60,
+              ),
+              label: const Text('Foregot Password?'),
+              onPressed: () => Get.toNamed(Routes.forgetPassword),
+            ),
+          ],
         ),
       ),
       Container(
