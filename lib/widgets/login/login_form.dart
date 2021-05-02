@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/common/utils/misc_service.dart';
 import 'package:demo_ecom/common/utils/validation_forms.dart';
@@ -44,8 +42,7 @@ class _LoginFormState extends State<LoginForm> {
           ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Login successfully')));
           Loader.hide();
-          var duration = const Duration(milliseconds: 1000);
-          return Timer(duration, () => redirect(context));
+          Get.toNamed(Routes.home);
         }
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
@@ -69,9 +66,6 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  redirect(BuildContext context) async {
-    Get.toNamed(Routes.home);
-  }
 
   List<Widget> getForm(BuildContext context) {
     final input_email = S.of(context).login_form_email;
@@ -79,29 +73,27 @@ class _LoginFormState extends State<LoginForm> {
     final input_password = S.of(context).login_form_password;
     final input_password_hit = S.of(context).login_form_password_hit;
     return [
-      Expanded(
-        child: TextFormField(
-          decoration: InputDecoration(
-            labelText: input_email,
-            hintText: input_email_hit,
-            suffixIcon: const Icon(
-              Icons.email_rounded,
-              color: Colors.white60,
-            ),
+      TextFormField(
+        decoration: InputDecoration(
+          labelText: input_email,
+          hintText: input_email_hit,
+          suffixIcon: const Icon(
+            Icons.email_rounded,
+            color: Colors.white60,
           ),
-          onSaved: (String value) {
-            email = value;
-          },
-          validator: (value) => ValidationForms().validateEmail(context, value),
         ),
+        onSaved: (String value) {
+          email = value;
+        },
+        validator: (value) => ValidationForms().validateEmail(context, value),
       ),
       const SizedBox(
         height: 20.0,
       ),
-      Expanded(
-        child: Row(
-          children: [
-            TextFormField(
+      Row(
+        children: [
+          Expanded(
+            child: TextFormField(
               obscureText: true,
               enableSuggestions: false,
               autocorrect: false,
@@ -116,18 +108,18 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) =>
                   ValidationForms().validatePassword(context, value),
             ),
+          ),
 
-            ///
-            TextButton.icon(
-              icon: const Icon(
-                Icons.lock,
-                color: Colors.white60,
-              ),
-              label: const Text('Foregot Password?'),
-              onPressed: () => Get.toNamed(Routes.forgetPassword),
+          ///
+          TextButton.icon(
+            icon: const Icon(
+              Icons.lock,
+              color: Colors.white60,
             ),
-          ],
-        ),
+            label: const Text('Forgot?'),
+            onPressed: () => Get.toNamed(Routes.forgetPassword),
+          ),
+        ],
       ),
       Container(
         margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
