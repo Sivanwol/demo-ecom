@@ -1,8 +1,7 @@
 import 'package:demo_ecom/common/utils/logger_service.dart';
-import 'package:demo_ecom/routes.dart';
-import 'package:demo_ecom/widgets/login/login_background.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:demo_ecom/routes.dart';
+import 'package:flutter/material.dart';
 
 import 'register_form.dart';
 
@@ -28,10 +27,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Widget _getBackgroundColor() {
-    return LoginBackground();
   }
 
   Widget _getContent(BuildContext context) {
@@ -71,13 +66,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             icon: const Icon(Icons.arrow_back),
             color: Colors.white54,
             //onPressed:() => Navigator.pop(context, false),
-            onPressed: () => Get.toNamed(Routes.login),
+            onPressed: () => Get.toNamed(Routes.launcher),
           ),
         ),
         body: Center(
           child: Stack(
             children: <Widget>[
-              _getBackgroundColor(),
               _getContent(context),
             ],
           ),

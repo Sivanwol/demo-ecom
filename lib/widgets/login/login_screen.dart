@@ -1,7 +1,8 @@
 import 'package:demo_ecom/common/utils/logger_service.dart';
-import 'package:demo_ecom/widgets/login/login_background.dart';
 import 'package:demo_ecom/widgets/login/login_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:demo_ecom/routes.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 
 import 'login_form.dart';
@@ -23,10 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Widget _getBackgroundColor() {
-    return LoginBackground();
   }
 
   Widget _getContent(BuildContext context) {
@@ -67,10 +64,26 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.black38.withAlpha(75),
+          automaticallyImplyLeading: true,
+          title: const Text(
+            'Back to login',
+            style: const TextStyle(color: Colors.white54),
+          ),
+          //`true` if you want Flutter to automatically add Back Button when needed,
+          //or `false` if you want to force your own back button every where
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white54,
+            //onPressed:() => Navigator.pop(context, false),
+            onPressed: () => Get.toNamed(Routes.launcher),
+          ),
+        ),
         body: Center(
           child: Stack(
             children: <Widget>[
-              _getBackgroundColor(),
               _getContent(context),
             ],
           ),

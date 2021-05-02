@@ -1,33 +1,22 @@
 import 'package:demo_ecom/common/utils/auth_service.dart';
 import 'package:demo_ecom/common/utils/enums.dart';
-import 'package:demo_ecom/routes.dart';
+import 'package:demo_ecom/widgets/common/launcher_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:demo_ecom/generated/l10n.dart';
 import 'package:get/get.dart';
+import 'package:demo_ecom/generated/l10n.dart';
+import 'package:demo_ecom/routes.dart';
 
-class LoginButtons extends StatefulWidget {
-  LoginButtons({Key key}) : super(key: key);
-
-  @override
-  _LoginButtonsState createState() => _LoginButtonsState();
-}
-
-class _LoginButtonsState extends State<LoginButtons> {
-  void _showButtonPressDialog(BuildContext context, String provider) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('$provider Button Pressed!'),
-      backgroundColor: Colors.black26,
-      duration: const Duration(milliseconds: 400),
-    ));
+class LauncherScreen extends StatelessWidget {
+  Widget _getBackgroundColor() {
+    return LancherBackground();
   }
 
   void onSocialSign(SignSocialTypes socialType, BuildContext context) async {
     await AuthService().onSocialSign(socialType, context);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _getContent(BuildContext context) {
     final register_new_user = S.of(context).login_form_register;
     final divider_or = S.of(context).register_button_or_dividers;
     final register_signup_google = S.of(context).register_signup_google;
@@ -77,6 +66,41 @@ class _LoginButtonsState extends State<LoginButtons> {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.black38.withAlpha(75),
+          automaticallyImplyLeading: true,
+          title: const Text(
+            'Signin Via Email',
+            style: TextStyle(color: Colors.white54),
+          ),
+          //`true` if you want Flutter to automatically add Back Button when needed,
+          //or `false` if you want to force your own back button every where
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.white54,
+              //onPressed:() => Navigator.pop(context, false),
+              onPressed: () => Get.toNamed(Routes.login),
+            ),
+          ],
+        ),
+        body: Center(
+          child: Stack(
+            children: <Widget>[
+              _getBackgroundColor(),
+              _getContent(context),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

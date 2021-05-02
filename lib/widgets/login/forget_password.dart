@@ -9,7 +9,6 @@ import 'package:demo_ecom/generated/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:demo_ecom/providers/user.provider.dart';
 
-import 'login_background.dart';
 
 class ForgetPassword extends StatefulWidget {
   @override
@@ -53,10 +52,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       MiscService()
           .displayErrorStackMessage(context, error_invalid_form_fields);
     }
-  }
-
-  Widget _getBackgroundColor() {
-    return LoginBackground();
   }
 
   Widget formButton(BuildContext context) {
@@ -123,9 +118,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         appBar: AppBar(
           backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
-          title: Text(
+          title: const Text(
             'Back to login',
-            style: const TextStyle(color: Colors.white54),
+            style: TextStyle(color: Colors.white54),
           ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
@@ -139,7 +134,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         body: Center(
           child: Stack(
             children: <Widget>[
-              _getBackgroundColor(),
               _getContent(context),
             ],
           ),

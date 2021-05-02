@@ -1,4 +1,5 @@
 import 'package:demo_ecom/widgets/home/home_screen.dart';
+import 'package:demo_ecom/widgets/launcher/launcher_screen.dart';
 import 'package:demo_ecom/widgets/login/forget_password.dart';
 import 'package:demo_ecom/widgets/login/login_screen.dart';
 import 'package:demo_ecom/widgets/register/register_screen.dart';
@@ -16,12 +17,14 @@ class Routes {
   static const String forgetPassword = '/forgetPassword';
   static const String register = '/register';
   static const String registerSocial = '/register/scoial';
+  static const String launcher = '/launcher';
   static final routesAuth = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
     home: (BuildContext context) => HomeScreen(),
     login: (BuildContext context) => LoginScreen(),
     register: (BuildContext context) => RegisterScreen(),
     forgetPassword: (BuildContext context) => ForgetPassword(),
+    launcher: (BuildContext context) => LauncherScreen(),
     registerSocial: (BuildContext context) => RegisterScreen(social: true),
   };
   static final routesNoAuth = <String, WidgetBuilder>{
@@ -29,6 +32,7 @@ class Routes {
     login: (BuildContext context) => LoginScreen(),
     register: (BuildContext context) => RegisterScreen(),
     forgetPassword: (BuildContext context) => ForgetPassword(),
+    launcher: (BuildContext context) => LauncherScreen(),
     registerSocial: (BuildContext context) => RegisterScreen(social: true),
   };
 

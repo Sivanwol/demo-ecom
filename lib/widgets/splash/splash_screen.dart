@@ -54,6 +54,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   redirect(BuildContext context) async {
-    Get.toNamed(Routes.login);
+    Get.toNamed(Routes.launcher);
   }
 }
