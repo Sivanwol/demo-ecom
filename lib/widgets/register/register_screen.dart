@@ -1,8 +1,7 @@
 import 'package:demo_ecom/common/utils/logger_service.dart';
-import 'package:demo_ecom/routes.dart';
-import 'package:demo_ecom/widgets/login/login_background.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:demo_ecom/routes.dart';
+import 'package:flutter/material.dart';
 
 import 'register_form.dart';
 
@@ -30,16 +29,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  Widget _getBackgroundColor() {
-    return LoginBackground();
-  }
-
   Widget _getContent(BuildContext context) {
     return Form(
       key: _formKey,
       child: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           const SizedBox(
             height: 40.0,
@@ -48,7 +43,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             image: AssetImage('assets/media/logo.jpg'),
             width: 150.0,
           ),
-          RegisterForm(social: widget.social),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RegisterForm(social: widget.social),
+            ],
+          ),
         ],
       ),
     );
@@ -62,26 +62,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
-          title: Text('Back to login', style: const TextStyle(
-            color: Colors.white54
-          ),),
+          title: const Text(
+            'Back to login',
+            style: TextStyle(color: Colors.white54),
+          ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             color: Colors.white54,
             //onPressed:() => Navigator.pop(context, false),
-            onPressed: () => Get.toNamed(Routes.login),
+            onPressed: () => Get.toNamed(Routes.launcher),
           ),
         ),
-        body: Center(
-          child: Stack(
-            children: <Widget>[
-              _getBackgroundColor(),
-              _getContent(context),
-            ],
-          ),
-        ),
+        body: _getContent(context),
       ),
     );
   }

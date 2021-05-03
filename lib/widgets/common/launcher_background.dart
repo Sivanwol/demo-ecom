@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class LoginBackground extends StatelessWidget {
+class LancherBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

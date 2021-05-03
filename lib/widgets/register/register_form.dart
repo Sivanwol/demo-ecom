@@ -70,7 +70,7 @@ class _RegisterFormState extends State<RegisterForm> {
         Loader.hide();
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('User Register')));
-        Get.toNamed(Routes.login);
+        Get.offAll(Routes.login);
         return;
       } on RegisterUserException catch (e) {
         var message = error_service_not_resonse_or_faild;

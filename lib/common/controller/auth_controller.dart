@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_ecom/models/app_user.dart';
-import 'package:demo_ecom/widgets/home/home_screen.dart';
-import 'package:demo_ecom/widgets/login/login_screen.dart';
+import 'package:demo_ecom/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -37,12 +36,12 @@ class AuthController extends GetxController {
 
     if (_firebaseUser != null) {
       if (_firebaseUser.emailVerified) {
-        Get.offAll(HomeScreen());
+        Get.offAll(Routes.home);
         return;
       }
     }
 
-    Get.offAll(const LoginScreen());
+    Get.offAll(Routes.launcher);
   }
 
   // Firebase user one-time fetch

@@ -77,6 +77,6 @@ class _ApplicationContextState extends State<ApplicationContext> {
     if (user != null) {
       return Routes.home;
     }
-    return Routes.login;
+    return Routes.launcher;
   }
 }
