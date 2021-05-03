@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final splogen_2 = S.of(context).login_slogen2;
     return ListView(
       shrinkWrap: true,
-      padding: EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(15.0),
       children: <Widget>[
         const SizedBox(
           height: 40.0,
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Text(
           splogen_1,
-          style: TextStyle(color: Colors.white, fontSize: 40),
+          style: const TextStyle(color: Colors.white, fontSize: 40),
           textAlign: TextAlign.center,
         ),
         Container(
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
             splogen_2,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
         LoginForm(),
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
           automaticallyImplyLeading: true,
           title: const Text(
             'Back to login',
-            style: const TextStyle(color: Colors.white54),
+            style: TextStyle(color: Colors.white54),
           ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where

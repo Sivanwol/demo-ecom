@@ -26,8 +26,13 @@ ThemeData _buildBasicTheme() {
     accentColor: colorScheme.secondary,
     textTheme: const TextTheme(
       subtitle1: TextStyle(color: Colors.white),
+      bodyText2: TextStyle(color: Colors.white60),
+      bodyText1: TextStyle(color: Colors.white60),
     ),
     iconTheme: const IconThemeData(color: Colors.white60),
+    dividerColor: Colors.white54,
+    disabledColor: Colors.white60,
+
     inputDecorationTheme: const InputDecorationTheme(
       hintStyle: TextStyle(
         color: Colors.white70,

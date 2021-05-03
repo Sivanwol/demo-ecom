@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       key: _formKey,
       child: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         children: <Widget>[
           const SizedBox(
             height: 40.0,
@@ -43,7 +43,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             image: AssetImage('assets/media/logo.jpg'),
             width: 150.0,
           ),
-          RegisterForm(social: widget.social),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RegisterForm(social: widget.social),
+            ],
+          ),
         ],
       ),
     );
@@ -57,9 +62,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         appBar: AppBar(
           backgroundColor: Colors.black38.withAlpha(75),
           automaticallyImplyLeading: true,
-          title: Text(
+          title: const Text(
             'Back to login',
-            style: const TextStyle(color: Colors.white54),
+            style: TextStyle(color: Colors.white54),
           ),
           //`true` if you want Flutter to automatically add Back Button when needed,
           //or `false` if you want to force your own back button every where
@@ -70,9 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             onPressed: () => Get.toNamed(Routes.launcher),
           ),
         ),
-        body: Center(
-          child: _getContent(context),
-        ),
+        body: _getContent(context),
       ),
     );
   }

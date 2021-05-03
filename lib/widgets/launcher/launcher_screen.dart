@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:demo_ecom/common/utils/auth_service.dart';
 import 'package:demo_ecom/common/utils/enums.dart';
 import 'package:demo_ecom/widgets/common/launcher_background.dart';
@@ -12,17 +14,31 @@ class LauncherScreen extends StatelessWidget {
     return LancherBackground();
   }
 
-  void onSocialSign(SignSocialTypes socialType, BuildContext context) async {
+  Future<void> onSocialSign(
+      SignSocialTypes socialType, BuildContext context) async {
     await AuthService().onSocialSign(socialType, context);
   }
 
   Widget _getContent(BuildContext context) {
-    final register_new_user = S.of(context).login_form_register;
     final divider_or = S.of(context).register_button_or_dividers;
     final register_signup_google = S.of(context).register_signup_google;
     final register_signup_facebook = S.of(context).register_signup_facebook;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: const Text(
+            'What you need What we want',
+            style: TextStyle(
+              color: Colors.white54,
+              fontSize: 36.0,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 40.0,
+        ),
         Container(
           margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: double.infinity,
@@ -30,7 +46,7 @@ class LauncherScreen extends StatelessWidget {
             onPressed: () async {
               Get.toNamed(Routes.register);
             },
-            label: Text(register_new_user),
+            label: const Text('create new account'),
             icon: const Icon(Icons.email_rounded),
           ),
         ),
@@ -88,13 +104,11 @@ class LauncherScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Center(
-          child: Stack(
-            children: <Widget>[
-              _getBackgroundColor(),
-              _getContent(context),
-            ],
-          ),
+        body: Stack(
+          children: <Widget>[
+            _getBackgroundColor(),
+            _getContent(context),
+          ],
         ),
       ),
     );
