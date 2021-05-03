@@ -20,9 +20,10 @@ dependencies:
   # Logging
   logger: ^1.0.0
   # Json
-  json_annotation: ^4.0.0
+  json_annotation: 3.1.1
   # graphql staff
   graphql_flutter: ^5.0.0-nullsafety.2
+  http: ^0.13.2
   # firebase
   firebase_core: ^1.0.2
   firebase_remote_config: ^0.9.0-dev.1
@@ -62,6 +63,8 @@ dependencies:
   url_launcher: ^6.0.3
   flutter_overlay_loader: ^0.1.1
   dart_extensions: ^2.0.4
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
 #  async: ^2.5.0
 # override requirement that conflict will rise if removed
 dependency_overrides:
@@ -80,7 +83,7 @@ dev_dependencies:
   # Linting
   lint: ^1.5.3
   # Json
-  json_serializable: ^4.0.0
+  json_serializable: 3.5.1
 
   # misc tools
   mockito: ^5.0.2

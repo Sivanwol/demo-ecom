@@ -8,11 +8,14 @@ import 'common/config/application_config.dart';
 import 'common/utils/firebase_utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import "package:graphql_flutter/graphql_flutter.dart";
+import "package:demo_ecom/common/config/graphql_configuration.dart";
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupFirebase();
 
+  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   if (ApplicationConfig.debug_mode &&
       !ApplicationConfig.enable_crashlytics &&
       !kIsWeb) {
@@ -33,5 +36,8 @@ main() async {
 
   // await GetStorage.init('app_store');
   Get.put<AuthController>(AuthController());
-  runApp(Application());
+  runApp(GraphQLProvider(
+    client: graphQLConfiguration.client,
+    child: CacheProvider(child: Application()),
+  ));
 }
