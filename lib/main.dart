@@ -33,10 +33,10 @@ main() async {
     }).sendPort);
   }
 
-  // await GetStorage.init('app_store');
   Get.put<AuthController>(AuthController());
   runApp(GraphQLProvider(
-    client: GraphqlConfiguration().clientToQuery(),
+    client:
+        ValueNotifier<GraphQLClient>(GraphqlConfiguration().clientToQuery()),
     child: CacheProvider(child: Application()),
   ));
 }
