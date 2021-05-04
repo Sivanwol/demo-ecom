@@ -8,12 +8,14 @@ import 'common/config/application_config.dart';
 import 'common/utils/firebase_utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import "package:graphql_flutter/graphql_flutter.dart";
-import "package:demo_ecom/common/config/graphql_configuration.dart";
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:demo_ecom/common/config/graphql_configuration.dart';
+import 'package:hive/hive.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupFirebase();
+  await Hive.initFlutter();
 
   if (ApplicationConfig.debug_mode &&
       !ApplicationConfig.enable_crashlytics &&
