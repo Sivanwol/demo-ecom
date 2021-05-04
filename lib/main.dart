@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:demo_ecom/common/config/graphql_configuration.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +38,7 @@ main() async {
 
   Get.put<AuthController>(AuthController());
   runApp(GraphQLProvider(
-    client:
-        ValueNotifier<GraphQLClient>(GraphqlConfiguration().clientToQuery()),
+    client: ValueNotifier<GraphQLClient>(await GraphqlConfiguration().clientToQuery()),
     child: CacheProvider(child: Application()),
   ));
 }

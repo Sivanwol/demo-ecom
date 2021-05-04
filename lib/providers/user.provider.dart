@@ -1,5 +1,6 @@
 import 'package:demo_ecom/common/config/graphql_configuration.dart';
 import 'package:demo_ecom/common/controller/auth_controller.dart';
+import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/exceptions/login_user_exception.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/app_user.dart';
@@ -31,8 +32,11 @@ class UserProvider extends ChangeNotifier {
 
   Future<bool> registerUser(NewUser userData) async {
     try {
-      var uid = await _registerUserWithFirebase(userData);
-      await _registerUserWithShopify(userData, uid);
+      var appUser = await _registerUserWithFirebase(userData);
+      final result = await _registerUserWithShopify(userData, appUser.uid);
+      if (result.hasException) {
+        LoggerService().error('User Register On shopify result with error', null, params: {'user': appUser, 'error': result});
+      }
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -45,7 +49,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<String> _registerUserWithFirebase(NewUser userData) async {
+  Future<AppUser> _registerUserWithFirebase(NewUser userData) async {
     var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: userData.email,
       password: userData.password,
@@ -56,23 +60,22 @@ class UserProvider extends ChangeNotifier {
     assert(userCredential.user.uid != '');
     await userCredential.user.updateProfile(displayName: userData.fullName);
     await userCredential.user.sendEmailVerification();
-    var appUser = AppUser(
-        userCredential.user.uid, userData.fullName, userData.email, true);
+    var appUser = AppUser(userCredential.user.uid, userData.fullName, userData.email, true);
     authController.createUserFirestore(appUser, userCredential.user);
-    await _firebaseAuth
-        .signOut(); // we logout as user needed re login as there link email step for this
-    return appUser.uid;
+    await _firebaseAuth.signOut(); // we logout as user needed re login as there link email step for this
+    LoggerService().info('User Register On firebase', params: {'user': appUser});
+    return appUser;
   }
 
-  Future<QueryResult> _registerUserWithShopify(
-      NewUser userData, String uid) async {
-    return GraphqlConfiguration().clientToQuery().mutate(MutationOptions(
-          document: gql(mutations.customerCreate),
-          variables: {
-            'email': userData.email,
-            'password': uid,
-          },
-        ));
+  Future<QueryResult> _registerUserWithShopify(NewUser userData, String uid) async {
+    var clientGQL = await GraphqlConfiguration().clientToQuery();
+    return clientGQL.mutate(MutationOptions(
+      document: gql(mutations.customerCreate),
+      variables: {
+        'email': userData.email,
+        'password': uid,
+      },
+    ));
   }
 
   Future<User> get FirebaseUser async {
@@ -92,15 +95,13 @@ class UserProvider extends ChangeNotifier {
       'https://www.googleapis.com/auth/contacts.readonly',
     ]);
 
-    final googleUser = await googleSignIn.signIn(
-    );
+    final googleUser = await googleSignIn.signIn();
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    var userCredential =
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    var userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
     final tokenId = await userCredential.user.getIdToken();
     assert(userCredential.user != null);
     assert(tokenId != '');
@@ -108,8 +109,7 @@ class UserProvider extends ChangeNotifier {
 
     var appUser = await authController.getFirestoreUser();
     if (appUser != null && appUser.isFirstTimeUser) {
-      final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email,
-          !appUser.isFirstTimeUser);
+      final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser);
       authController.updateUserFirestore(cloneAppUser, userCredential.user);
     } else {
       appUser = AppUser(appUser.uid, appUser.fullName, appUser.email, true);
@@ -120,8 +120,7 @@ class UserProvider extends ChangeNotifier {
 
   Future<AppUser> loginUserViaEmail(String email, String password) async {
     try {
-      var userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      var userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       final tokenId = await userCredential.user.getIdToken();
       assert(userCredential.user != null);
       assert(tokenId != '');
@@ -133,8 +132,7 @@ class UserProvider extends ChangeNotifier {
         notifyListeners();
         final appUser = await authController.getFirestoreUser();
         if (appUser.isFirstTimeUser) {
-          final cloneAppUser = AppUser(appUser.uid, appUser.fullName,
-              appUser.email, !appUser.isFirstTimeUser);
+          final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser);
           authController.updateUserFirestore(cloneAppUser, userCredential.user);
         }
         return appUser;

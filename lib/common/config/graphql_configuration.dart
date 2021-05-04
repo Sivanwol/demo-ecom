@@ -1,5 +1,6 @@
 import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hive/hive.dart';
 import './application_config.dart';
 
 const bool ENABLE_WEBSOCKETS = false;
@@ -16,7 +17,7 @@ class GraphqlConfiguration {
     getToken: () async => 'Bearer ${ApplicationConfig.shopify_auth}',
   );
 
-  GraphQLClient clientToQuery() {
+  Future<GraphQLClient> clientToQuery() async {
     if (_client == null) {
       var link = authLink.concat(httpLink);
 
@@ -29,8 +30,9 @@ class GraphqlConfiguration {
           link,
         );
       }
+      final box = await Hive.openBox('demo_ecom');
       _client = GraphQLClient(
-        cache: GraphQLCache(store: HiveStore()),
+        cache: GraphQLCache(store: HiveStore(box)),
         link: link,
       );
     }
