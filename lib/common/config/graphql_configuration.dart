@@ -5,6 +5,8 @@ import './application_config.dart';
 const bool ENABLE_WEBSOCKETS = false;
 
 class GraphqlConfiguration {
+  GraphQLClient _client;
+
   final httpLink = HttpLink(
     ApplicationConfig.backend_api,
   );
@@ -15,21 +17,23 @@ class GraphqlConfiguration {
   );
 
   GraphQLClient clientToQuery() {
-    var link = authLink.concat(httpLink);
+    if (_client == null) {
+      var link = authLink.concat(httpLink);
 
-    if (ENABLE_WEBSOCKETS) {
-      final websocketLink = WebSocketLink('ws://localhost:8080/ws/graphql');
+      if (ENABLE_WEBSOCKETS) {
+        final websocketLink = WebSocketLink('ws://localhost:8080/ws/graphql');
 
-      link = Link.split(
-        (request) => request.isSubscription,
-        websocketLink,
-        link,
+        link = Link.split(
+          (request) => request.isSubscription,
+          websocketLink,
+          link,
+        );
+      }
+      _client = GraphQLClient(
+        cache: GraphQLCache(store: HiveStore()),
+        link: link,
       );
     }
-
-    return GraphQLClient(
-      cache: GraphQLCache(store: HiveStore()),
-      link: link,
-    );
+    return _client;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:demo_ecom/common/config/graphql_configuration.dart';
 import 'package:demo_ecom/common/controller/auth_controller.dart';
 import 'package:demo_ecom/exceptions/login_user_exception.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
@@ -5,8 +6,10 @@ import 'package:demo_ecom/models/app_user.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:demo_ecom/graphql/mutations/main.dart' as mutations;
 
 class UserProvider extends ChangeNotifier {
   final AuthController authController = AuthController.to;
@@ -28,21 +31,8 @@ class UserProvider extends ChangeNotifier {
 
   Future<bool> registerUser(NewUser userData) async {
     try {
-      var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: userData.email,
-        password: userData.password,
-      );
-      final tokenId = await userCredential.user.getIdToken();
-      assert(userCredential.user != null);
-      assert(tokenId != '');
-      assert(userCredential.user.uid != '');
-      await userCredential.user.updateProfile(displayName: userData.fullName);
-      await userCredential.user.sendEmailVerification();
-      var appUser = AppUser(
-          userCredential.user.uid, userData.fullName, userData.email, true);
-      authController.createUserFirestore(appUser, userCredential.user);
-      await _firebaseAuth
-          .signOut(); // we logout as user needed re login as there link email step for this
+      var uid = await _registerUserWithFirebase(userData);
+      await _registerUserWithShopify(userData, uid);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -53,6 +43,36 @@ class UserProvider extends ChangeNotifier {
     } catch (e) {
       throw RegisterUserException('unknown error', userData, e.toString());
     }
+  }
+
+  Future<String> _registerUserWithFirebase(NewUser userData) async {
+    var userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      email: userData.email,
+      password: userData.password,
+    );
+    final tokenId = await userCredential.user.getIdToken();
+    assert(userCredential.user != null);
+    assert(tokenId != '');
+    assert(userCredential.user.uid != '');
+    await userCredential.user.updateProfile(displayName: userData.fullName);
+    await userCredential.user.sendEmailVerification();
+    var appUser = AppUser(
+        userCredential.user.uid, userData.fullName, userData.email, true);
+    authController.createUserFirestore(appUser, userCredential.user);
+    await _firebaseAuth
+        .signOut(); // we logout as user needed re login as there link email step for this
+    return appUser.uid;
+  }
+
+  Future<QueryResult> _registerUserWithShopify(
+      NewUser userData, String uid) async {
+    return GraphqlConfiguration().clientToQuery().mutate(MutationOptions(
+          document: gql(mutations.customerCreate),
+          variables: {
+            'email': userData.email,
+            'password': uid,
+          },
+        ));
   }
 
   Future<User> get FirebaseUser async {
