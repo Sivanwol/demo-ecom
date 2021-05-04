@@ -15,7 +15,6 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupFirebase();
 
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   if (ApplicationConfig.debug_mode &&
       !ApplicationConfig.enable_crashlytics &&
       !kIsWeb) {
@@ -37,7 +36,7 @@ main() async {
   // await GetStorage.init('app_store');
   Get.put<AuthController>(AuthController());
   runApp(GraphQLProvider(
-    client: graphQLConfiguration.client,
+    client: GraphqlConfiguration().clientToQuery(),
     child: CacheProvider(child: Application()),
   ));
 }
