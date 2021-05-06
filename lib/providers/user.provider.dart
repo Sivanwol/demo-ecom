@@ -32,11 +32,12 @@ class UserProvider extends ChangeNotifier {
 
   Future<bool> registerUser(NewUser userData) async {
     try {
+      authController.setRedirectionOnUserCreation(false);
       var appUser = await _registerUserWithFirebase(userData);
-      final result = await _registerUserWithShopify(userData, appUser.uid);
-      if (result.hasException) {
-        LoggerService().error('User Register On shopify result with error', null, params: {'user': appUser, 'error': result});
-      }
+      LoggerService().info('Register User on firebase', params: {'user': appUser.uid});
+      var result = await _registerUserWithShopify(userData, appUser.uid);
+      LoggerService().info('Register User on shopify', params: {'query': result});
+      authController.setRedirectionOnUserCreation(true);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -63,13 +64,11 @@ class UserProvider extends ChangeNotifier {
     var appUser = AppUser(userCredential.user.uid, userData.fullName, userData.email, true);
     authController.createUserFirestore(appUser, userCredential.user);
     await _firebaseAuth.signOut(); // we logout as user needed re login as there link email step for this
-    LoggerService().info('User Register On firebase', params: {'user': appUser});
     return appUser;
   }
 
   Future<QueryResult> _registerUserWithShopify(NewUser userData, String uid) async {
-    var clientGQL = await GraphqlConfiguration().clientToQuery();
-    return clientGQL.mutate(MutationOptions(
+    return (await GraphqlConfiguration().clientToQuery()).mutate(MutationOptions(
       document: gql(mutations.customerCreate),
       variables: {
         'email': userData.email,
