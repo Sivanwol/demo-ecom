@@ -20,7 +20,7 @@ dependencies:
   # Logging
   logger: ^1.0.0
   # Json
-  json_annotation: 3.1.1
+  json_annotation: ^4.0.1
   ferry: ^0.10.1-0.1.nullsafety.0
   gql_http_link: ^0.4.0-nullsafety.1
   ferry_hive_store: ^0.4.1-0.1.nullsafety.0
@@ -73,7 +73,9 @@ dependency_overrides:
   yaml: ^3.1.0
   args: ^2.0.0
   build: ^2.0.0
+  build_config: ^1.0.0
   build_resolvers: ^2.0.1
+  code_builder: ^4.0.0
   source_gen: ^1.0.0
   graphs: ^1.0.0
   rxdart: ^0.26.0
@@ -82,17 +84,17 @@ dependency_overrides:
 dev_dependencies:
   # add build runner if not already added
   ferry_generator: ^0.4.0-1.0.nullsafety.0
-  build_runner: ^1.10.0
+  build_runner: ^2.0.2
 #  hive_generator: ^1.1.0
   flutter_test:
     sdk: flutter
   # Linting
   lint: ^1.5.3
   # Json
-  json_serializable: 3.5.1
+  json_serializable: ^4.1.1
 
   # misc tools
-  mockito: ^5.0.2
+  #  mockito: ^5.0.2
   flutter_launcher_icons: ^0.9.0
   environment_config: ^2.2.5
 flutter:
