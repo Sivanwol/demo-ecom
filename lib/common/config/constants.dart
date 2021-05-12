@@ -1,3 +1,4 @@
+import 'package:demo_ecom/common/config/application_config.dart';
 import 'package:demo_ecom/common/utils/enums.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:enum_to_string/enum_to_string.dart';
@@ -17,7 +18,7 @@ class ConstantsObject {
   }
 
   String GetRoute() {
-    return (routeArgs == null || routeArgs.length == 0) ? _route : sprintf(_route, routeArgs);
+    return sprintf('%s%s', [ApplicationConfig.backend_api, (routeArgs == null || routeArgs.isEmpty) ? _route : sprintf(_route, routeArgs)]);
   }
 
   String GetMethodName() {
