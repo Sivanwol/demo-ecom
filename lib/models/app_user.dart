@@ -8,11 +8,11 @@ class AppUser {
   final String fullName;
   final String email;
   final bool isFirstTimeUser;
+  final String token;
 
-  AppUser(this.uid, this.fullName, this.email, this.isFirstTimeUser);
+  AppUser(this.uid, this.fullName, this.email, this.isFirstTimeUser, this.token);
 
-  factory AppUser.fromJson(Map<String, dynamic> json) =>
-      _$AppUserFromJson(json);
+  factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppUserToJson(this);
 }

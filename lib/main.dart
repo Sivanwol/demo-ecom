@@ -8,19 +8,18 @@ import 'common/config/application_config.dart';
 import 'common/utils/firebase_utils.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:demo_ecom/common/config/graphql_configuration.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:get_it/get_it.dart';
+import 'package:demo_ecom/common/utils/api_service.dart';
+import 'package:demo_ecom/common/utils/logger_service.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupFirebase();
   await Hive.initFlutter();
 
-  if (ApplicationConfig.debug_mode &&
-      !ApplicationConfig.enable_crashlytics &&
-      !kIsWeb) {
+  if (ApplicationConfig.debug_mode && !ApplicationConfig.enable_crashlytics && !kIsWeb) {
     // Force disable Crashlytics collection while doing every day development.
     // Temporarily toggle this to true if you want to test crash reporting in your app.
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
@@ -37,8 +36,7 @@ main() async {
   }
 
   Get.put<AuthController>(AuthController());
-  runApp(GraphQLProvider(
-    client: ValueNotifier<GraphQLClient>(await GraphqlConfiguration().clientToQuery()),
-    child: CacheProvider(child: Application()),
-  ));
+  GetIt.I.registerSingleton<ApiService>(ApiService());
+  GetIt.I.registerSingleton<LoggerService>(LoggerService());
+  runApp(Application());
 }

@@ -1,5 +1,6 @@
-import 'package:demo_ecom/common/config/graphql_configuration.dart';
+import 'package:demo_ecom/common/config/constants.dart';
 import 'package:demo_ecom/common/controller/auth_controller.dart';
+import 'package:demo_ecom/common/utils/api_service.dart';
 import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/exceptions/login_user_exception.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
@@ -7,10 +8,10 @@ import 'package:demo_ecom/models/app_user.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:demo_ecom/graphql/mutations/main.dart' as mutations;
+import 'package:demo_ecom/common/config/constants.dart';
 
 class UserProvider extends ChangeNotifier {
   final AuthController authController = AuthController.to;
@@ -31,21 +32,24 @@ class UserProvider extends ChangeNotifier {
   }
 
   Future<bool> registerUser(NewUser userData) async {
+    var logger = GetIt.I<LoggerService>();
     try {
       authController.setRedirectionOnUserCreation(false);
       var appUser = await _registerUserWithFirebase(userData);
-      LoggerService().info('Register User on firebase', params: {'user': appUser.uid});
-      var result = await _registerUserWithShopify(userData, appUser.uid);
-      LoggerService().info('Register User on shopify', params: {'query': result});
+      logger.info('Register User on firebase', params: {'user': appUser.uid});
+      await _registerUserWithServer(userData, appUser.uid, appUser.token);
       authController.setRedirectionOnUserCreation(true);
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
+        logger.info('error Register weak password', params: {'user': userData, 'code': e.code});
         throw RegisterUserException('weak password roles', userData, e.code);
       } else if (e.code == 'email-already-in-use') {
-        throw RegisterUserException('user exisred', userData, e.code);
+        logger.info('user existed', params: {'user': userData, 'code': e.code});
+        throw RegisterUserException('user existed', userData, e.code);
       }
     } catch (e) {
+      logger.info('unknown error', params: {'user': userData, 'code': e.toString()});
       throw RegisterUserException('unknown error', userData, e.toString());
     }
   }
@@ -61,20 +65,20 @@ class UserProvider extends ChangeNotifier {
     assert(userCredential.user.uid != '');
     await userCredential.user.updateProfile(displayName: userData.fullName);
     await userCredential.user.sendEmailVerification();
-    var appUser = AppUser(userCredential.user.uid, userData.fullName, userData.email, true);
+    var appUser = AppUser(userCredential.user.uid, userData.fullName, userData.email, true, tokenId);
     authController.createUserFirestore(appUser, userCredential.user);
     await _firebaseAuth.signOut(); // we logout as user needed re login as there link email step for this
     return appUser;
   }
 
-  Future<QueryResult> _registerUserWithShopify(NewUser userData, String uid) async {
-    return (await GraphqlConfiguration().clientToQuery()).mutate(MutationOptions(
-      document: gql(mutations.customerCreate),
-      variables: {
-        'email': userData.email,
-        'password': uid,
-      },
-    ));
+  Future<void> _registerUserWithServer(NewUser userData, String uid, String token) async {
+    var logger = GetIt.I<LoggerService>();
+    var client = GetIt.I<ApiService>();
+    var dio = client.getHttpObject(token);
+    var routeObj = Constants.api_user_sync_customer;
+    routeObj.setRouteParams([uid]);
+    var restult = await client.request(dio, routeObj);
+    assert(restult != null);
   }
 
   Future<User> get FirebaseUser async {
@@ -108,10 +112,10 @@ class UserProvider extends ChangeNotifier {
 
     var appUser = await authController.getFirestoreUser();
     if (appUser != null && appUser.isFirstTimeUser) {
-      final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser);
+      final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser, tokenId);
       authController.updateUserFirestore(cloneAppUser, userCredential.user);
     } else {
-      appUser = AppUser(appUser.uid, appUser.fullName, appUser.email, true);
+      appUser = AppUser(appUser.uid, appUser.fullName, appUser.email, true, tokenId);
       authController.createUserFirestore(appUser, userCredential.user);
     }
     return appUser;
@@ -131,7 +135,7 @@ class UserProvider extends ChangeNotifier {
         notifyListeners();
         final appUser = await authController.getFirestoreUser();
         if (appUser.isFirstTimeUser) {
-          final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser);
+          final cloneAppUser = AppUser(appUser.uid, appUser.fullName, appUser.email, !appUser.isFirstTimeUser, tokenId);
           authController.updateUserFirestore(cloneAppUser, userCredential.user);
         }
         return appUser;

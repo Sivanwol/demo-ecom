@@ -7,3 +7,5 @@ extension ParseToString on RemoteConfigKeys {
     return this.toString().split('.').last;
   }
 }
+
+enum HttpMethods { GET, POST, DELETE, PUT }
