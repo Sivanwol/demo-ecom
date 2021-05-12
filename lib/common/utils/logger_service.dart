@@ -22,7 +22,7 @@ class LoggerService {
     logger.i(message, params.isEmpty ? null : const JsonEncoder().convert(params));
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
 
       FirebaseCrashlytics.instance.log(message);
@@ -33,7 +33,7 @@ class LoggerService {
     logger.e(message, params.isEmpty ? null : const JsonEncoder().convert(params), stack);
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
       FirebaseCrashlytics.instance.recordError(message, stack);
     }
@@ -43,7 +43,7 @@ class LoggerService {
     logger.i(message, params.isEmpty ? null : const JsonEncoder().convert(params));
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
 
       FirebaseCrashlytics.instance.log(message);

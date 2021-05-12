@@ -49,13 +49,13 @@ class ApiService {
       logger.error('request failed', e.stackTrace, params: {
         'message': e.message,
         'status_code': e.response.statusCode,
-        'headers': e.response.headers,
-        'data': e.response.data,
+        'headers': e.response.headers.toString(),
+        'data': e.response.data.toString(),
         'request_url': routeObj.GetRoute(),
         'request_method': routeObj.GetMethodName(),
         'request_data': data
       });
-      return null;
     }
+    return null;
   }
 }
