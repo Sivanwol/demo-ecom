@@ -26,8 +26,6 @@ environment_config:
     backend_api:
       default: "http://10.0.0.31:5001"
       type: String
-    shopify_auth:
-      type: String
     firebase_app:
       default: "bmi-calc-project"
       type: String
@@ -43,4 +41,4 @@ environment_config:
       type: String
 
 # run env generation via this command
-# flutter pub run environment_config:generate --config=config.yaml --shopify_auth="1243" --application_title="demo Ecom" --firebase_app="" --backend_api="10.0.0.31:5001" --enable_crashlytics=true ....
+# flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="" --backend_api="http://10.0.0.31:5000/api" --enable_crashlytics=true ....

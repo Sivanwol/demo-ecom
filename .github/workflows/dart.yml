@@ -47,7 +47,7 @@ jobs:
       - run: flutter pub get
       # Check for any formatting issues in the code.
       - run: flutter format --dry-run .
-      - run: flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="${{ secrets.nextFIREBASE_PROJECTID }}"
+      - run: flutter pub run environment_config:generate --config=config.yaml  --backend_api="${{ secrets.BACKEND_API }}" --firebase_emulator=true --application_title="demo Ecom" --firebase_app="${{ secrets.nextFIREBASE_PROJECTID }}"
       - run: flutter packages pub run build_runner build
       - run: flutter analyze --no-fatal-infos --no-fatal-warnings
       #skip the test till will found a way bring firebase to ci and work rigth 
