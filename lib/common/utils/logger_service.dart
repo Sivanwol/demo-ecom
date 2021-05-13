@@ -14,35 +14,36 @@ class LoggerService {
 
   LoggerService._internal();
 
-  void verbose(String message, {Map<String, dynamic> params = const {}}) => logger.v(message, params.isEmpty?null:const JsonEncoder().convert(params));
-  void debug(String message, {Map<String, dynamic> params = const {}}) => logger.d(message, params.isEmpty?null:const JsonEncoder().convert(params));
+  void verbose(String message, {Map<String, dynamic> params = const {}}) => logger.v(message, params.isEmpty ? null : const JsonEncoder().convert(params));
+
+  void debug(String message, {Map<String, dynamic> params = const {}}) => logger.d(message, params.isEmpty ? null : const JsonEncoder().convert(params));
+
   void info(String message, {Map<String, dynamic> params = const {}}) {
-    logger.i(
-        message, params.isEmpty ? null : const JsonEncoder().convert(params));
+    logger.i(message, params.isEmpty ? null : const JsonEncoder().convert(params));
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
 
       FirebaseCrashlytics.instance.log(message);
     }
   }
-  void error(String message, StackTrace stack , {Map<String, dynamic> params = const {}}) {
-    logger.e(message,
-        params.isEmpty ? null : const JsonEncoder().convert(params), stack);
+
+  void error(String message, StackTrace stack, {Map<String, dynamic> params = const {}}) {
+    logger.e(message, params.isEmpty ? null : const JsonEncoder().convert(params), stack);
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
       FirebaseCrashlytics.instance.recordError(message, stack);
     }
   }
+
   void warn(String message, {Map<String, dynamic> params = const {}}) {
-    logger.i(
-        message, params.isEmpty ? null : const JsonEncoder().convert(params));
+    logger.i(message, params.isEmpty ? null : const JsonEncoder().convert(params));
     if (!kIsWeb) {
       params.forEach((key, value) {
-        FirebaseCrashlytics.instance.setCustomKey(key, value);
+        FirebaseCrashlytics.instance.setCustomKey(key, value.toString());
       });
 
       FirebaseCrashlytics.instance.log(message);

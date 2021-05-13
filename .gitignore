@@ -88,3 +88,5 @@ Pods/
 
 # Local config/setup
 database.rules.json
+
+/lib/graphql/*.gql.dart

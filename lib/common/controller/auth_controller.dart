@@ -11,6 +11,7 @@ class AuthController extends GetxController {
   final RxBool admin = false.obs;
   Rxn<User> firebaseUser = Rxn<User>();
   Rxn<AppUser> firestoreUser = Rxn<AppUser>();
+  bool allowRedirectOnAuth = true;
 
   @override
   void onReady() async {
@@ -27,6 +28,10 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
+  setRedirectionOnUserCreation(bool status) {
+    allowRedirectOnAuth = status;
+  }
+
   handleAuthChanged(User _firebaseUser) async {
     //get user data from firestore
     if (_firebaseUser?.uid != null) {
@@ -41,7 +46,9 @@ class AuthController extends GetxController {
       }
     }
 
-    Get.offAll(Routes.launcher);
+    if (allowRedirectOnAuth) {
+      Get.offAll(Routes.launcher);
+    }
   }
 
   // Firebase user one-time fetch
