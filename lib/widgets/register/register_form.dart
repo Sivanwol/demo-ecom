@@ -5,7 +5,6 @@ import 'package:demo_ecom/common/utils/logger_service.dart';
 import 'package:demo_ecom/exceptions/register_user_exception.dart';
 import 'package:demo_ecom/models/new_user.dart';
 import 'package:demo_ecom/providers/user.provider.dart';
-import 'package:demo_ecom/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_ecom/generated/l10n.dart';
 import 'package:get/get.dart';
@@ -68,9 +67,8 @@ class _RegisterFormState extends State<RegisterForm> {
       try {
         await userProvider.registerUser(userData);
         Loader.hide();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('User Register')));
-        Get.offAll(Routes.login);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('User Register')));
+        Get.back();
         return;
       } on RegisterUserException catch (e) {
         var message = error_service_not_resonse_or_faild;
