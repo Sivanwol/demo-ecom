@@ -40,5 +40,6 @@ environment_config:
       default: "https://www.fleetster.net/legal/standard-terms-and-conditions.pdf"
       type: String
 
+
 # run env generation via this command
 # flutter pub run environment_config:generate --config=config.yaml --application_title="demo Ecom" --firebase_app="" --backend_api="http://10.0.0.31:5000/api" --enable_crashlytics=true ....
